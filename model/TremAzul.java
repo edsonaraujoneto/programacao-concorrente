@@ -18,6 +18,7 @@ import javafx.util.Duration;
  
 public class TremAzul extends Thread {
   
+  
   private final ImageView tremAzul;
   
   private final ImageView tremAzulLadoOposto;
@@ -28,14 +29,18 @@ public class TremAzul extends Thread {
   
   private final Path pathAzul;
   
+  private final Object lock;
+  
   // construtor da classe
-  public TremAzul (ImageView tremAzul,ImageView tremAzulLadoOposto, Slider aceleradorAzul) {
+  public TremAzul (ImageView tremAzul,ImageView tremAzulLadoOposto, Slider aceleradorAzul,Object lock) {
     this.tremAzul = tremAzul;
     this.tremAzulLadoOposto = tremAzulLadoOposto;
     this.aceleradorAzul = aceleradorAzul;
+    this.lock = lock;
     pathAzul = new Path();
     pathTransitionAzul = new PathTransition();
   }
+    
   
   /*********************************************************************
   * Metodo: ajustarVelocidade
@@ -74,13 +79,21 @@ public class TremAzul extends Thread {
       tremAzul.setVisible(true);
       pathAzul.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathAzul.getElements().add(new LineTo(300, 220)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(266, 190)); // vai pra esquerda
-      pathAzul.getElements().add(new LineTo(266, 120)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(300, 90)); // vai pra direita
+      // inicio regiao critica 1
+      synchronized (lock) {
+        pathAzul.getElements().add(new LineTo(266, 190)); // vai pra esquerda
+        pathAzul.getElements().add(new LineTo(266, 120)); // vai pra frente
+        pathAzul.getElements().add(new LineTo(300, 90)); // vai pra direita
+      }
+      // fim regiao critica 1
       pathAzul.getElements().add(new LineTo(300, 5)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(266, -50)); // vai pra esquerda
-      pathAzul.getElements().add(new LineTo(266, -100)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(300, -140)); // vai pra direita
+      // inicio regiao critica 2
+      synchronized (lock) {
+        pathAzul.getElements().add(new LineTo(266, -50)); // vai pra esquerda
+        pathAzul.getElements().add(new LineTo(266, -100)); // vai pra frente
+        pathAzul.getElements().add(new LineTo(300, -140)); // vai pra direita
+      }
+      // fim regiao critica 2
       pathAzul.getElements().add(new LineTo(300, -220)); // vai pra frente
       
       pathTransitionAzul.setNode(tremAzul);
@@ -90,13 +103,21 @@ public class TremAzul extends Thread {
       tremAzul.setVisible(false);
       pathAzul.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathAzul.getElements().add(new LineTo(300, 380)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(268, 400)); // vai pra esquerda
-      pathAzul.getElements().add(new LineTo(268, 470)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(300, 500)); // vai pra direita
+      // inicio regiao critica 2
+      synchronized (lock) {
+        pathAzul.getElements().add(new LineTo(268, 400)); // vai pra esquerda
+        pathAzul.getElements().add(new LineTo(268, 470)); // vai pra frente
+        pathAzul.getElements().add(new LineTo(300, 500)); // vai pra direita
+      }
+      // fim regiao critica 2
       pathAzul.getElements().add(new LineTo(300, 585)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(268, 635)); // vai pra esquerda
-      pathAzul.getElements().add(new LineTo(268, 685)); // vai pra frente
-      pathAzul.getElements().add(new LineTo(300, 725)); // vai pra direita
+      // inicio regiao critica 1
+      synchronized (lock) {
+        pathAzul.getElements().add(new LineTo(268, 635)); // vai pra esquerda
+        pathAzul.getElements().add(new LineTo(268, 685)); // vai pra frente
+        pathAzul.getElements().add(new LineTo(300, 725)); // vai pra direita
+      }
+      // fim regiao critica 1
       pathAzul.getElements().add(new LineTo(300, 825)); // vai pra frente
       
       pathTransitionAzul.setNode(tremAzulLadoOposto);

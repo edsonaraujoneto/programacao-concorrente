@@ -62,6 +62,8 @@ public class PlataformaController implements Initializable {
   
   private TremVerde tremVerdeThread;
 
+  private static final Object lock = new Object();
+  
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // Configuracoes basicas dos sliders
@@ -84,8 +86,8 @@ public class PlataformaController implements Initializable {
     mediaPlayer = new MediaPlayer(media);
     
     // criando as threads e passando como parametro as imagens dos dois lados e os sliders.
-    tremAzulThread = new TremAzul(tremAzul,tremAzulLadoOposto, aceleradorAzul);
-    tremVerdeThread = new TremVerde(tremVerde,tremVerdeLadoOposto, aceleradorVerde);
+    tremAzulThread = new TremAzul(tremAzul,tremAzulLadoOposto, aceleradorAzul, lock );
+    tremVerdeThread = new TremVerde(tremVerde,tremVerdeLadoOposto, aceleradorVerde, lock);
     tremAzulThread.start();
     tremVerdeThread.start();
 

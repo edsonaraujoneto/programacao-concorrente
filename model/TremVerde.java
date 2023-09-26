@@ -28,11 +28,14 @@ public class TremVerde extends Thread {
   
   private final Path pathVerde;
   
+  private final Object lock;
+  
   // construtor da classe
-  public TremVerde (ImageView tremVerde,ImageView tremVerdeLadoOposto, Slider aceleradorVerde) {
+  public TremVerde (ImageView tremVerde,ImageView tremVerdeLadoOposto, Slider aceleradorVerde, Object lock) {
     this.tremVerde = tremVerde;
     this.tremVerdeLadoOposto = tremVerdeLadoOposto;
     this.aceleradorVerde = aceleradorVerde;
+    this.lock = lock;
     pathVerde = new Path();
     pathTransitionVerde = new PathTransition();
   }
@@ -74,13 +77,21 @@ public class TremVerde extends Thread {
       tremVerde.setVisible(true);
       pathVerde.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathVerde.getElements().add(new LineTo(300, 220)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(330, 190)); // vai pra direita
-      pathVerde.getElements().add(new LineTo(330, 120)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(300, 90)); // vai pra esquerda
+      // inicio regiao critica 1
+      synchronized (lock) {
+        pathVerde.getElements().add(new LineTo(330, 190)); // vai pra direita
+        pathVerde.getElements().add(new LineTo(330, 120)); // vai pra frente
+        pathVerde.getElements().add(new LineTo(300, 90)); // vai pra esquerda
+      }
+      // fim regiao critica 1
       pathVerde.getElements().add(new LineTo(300, 5)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(330, -50)); // vai pra direita
-      pathVerde.getElements().add(new LineTo(330, -100)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(300, -140)); // vai pra esquerda
+      // inicio regiao critica 2
+      synchronized (lock) {
+        pathVerde.getElements().add(new LineTo(330, -50)); // vai pra direita
+        pathVerde.getElements().add(new LineTo(330, -100)); // vai pra frente
+        pathVerde.getElements().add(new LineTo(300, -140)); // vai pra esquerda
+      }
+      // fim regiao critica 2
       pathVerde.getElements().add(new LineTo(300, -220)); // vai pra frente
       
       pathTransitionVerde.setNode(tremVerde);
@@ -90,13 +101,21 @@ public class TremVerde extends Thread {
       tremVerde.setVisible(false);
       pathVerde.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathVerde.getElements().add(new LineTo(300, 380)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(330, 400)); // vai pra direita
-      pathVerde.getElements().add(new LineTo(330, 470)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(300, 500)); // vai pra esquerda
+      // inicio regiao critica 2
+      synchronized (lock) {
+        pathVerde.getElements().add(new LineTo(330, 400)); // vai pra direita
+        pathVerde.getElements().add(new LineTo(330, 470)); // vai pra frente
+        pathVerde.getElements().add(new LineTo(300, 500)); // vai pra esquerda
+      }
+      // fim regiao critica 2
       pathVerde.getElements().add(new LineTo(300, 585)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(330, 635)); // vai pra direita
-      pathVerde.getElements().add(new LineTo(330, 685)); // vai pra frente
-      pathVerde.getElements().add(new LineTo(300, 725)); // vai pra esquerda
+      // inicio regiao critica 1
+      synchronized (lock) {
+        pathVerde.getElements().add(new LineTo(330, 635)); // vai pra direita
+        pathVerde.getElements().add(new LineTo(330, 685)); // vai pra frente
+        pathVerde.getElements().add(new LineTo(300, 725)); // vai pra esquerda
+      }
+      // fim regiao critica 1
       pathVerde.getElements().add(new LineTo(300, 825)); // vai pra frente
       
       pathTransitionVerde.setNode(tremVerdeLadoOposto);
