@@ -78,19 +78,15 @@ public class TremVerde extends Thread {
       pathVerde.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathVerde.getElements().add(new LineTo(300, 220)); // vai pra frente
       // inicio regiao critica 1
-      synchronized (lock) {
         pathVerde.getElements().add(new LineTo(330, 190)); // vai pra direita
         pathVerde.getElements().add(new LineTo(330, 120)); // vai pra frente
         pathVerde.getElements().add(new LineTo(300, 90)); // vai pra esquerda
-      }
       // fim regiao critica 1
       pathVerde.getElements().add(new LineTo(300, 5)); // vai pra frente
       // inicio regiao critica 2
-      synchronized (lock) {
         pathVerde.getElements().add(new LineTo(330, -50)); // vai pra direita
         pathVerde.getElements().add(new LineTo(330, -100)); // vai pra frente
         pathVerde.getElements().add(new LineTo(300, -140)); // vai pra esquerda
-      }
       // fim regiao critica 2
       pathVerde.getElements().add(new LineTo(300, -220)); // vai pra frente
       
@@ -102,19 +98,15 @@ public class TremVerde extends Thread {
       pathVerde.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathVerde.getElements().add(new LineTo(300, 380)); // vai pra frente
       // inicio regiao critica 2
-      synchronized (lock) {
         pathVerde.getElements().add(new LineTo(330, 400)); // vai pra direita
         pathVerde.getElements().add(new LineTo(330, 470)); // vai pra frente
         pathVerde.getElements().add(new LineTo(300, 500)); // vai pra esquerda
-      }
       // fim regiao critica 2
       pathVerde.getElements().add(new LineTo(300, 585)); // vai pra frente
       // inicio regiao critica 1
-      synchronized (lock) {
         pathVerde.getElements().add(new LineTo(330, 635)); // vai pra direita
         pathVerde.getElements().add(new LineTo(330, 685)); // vai pra frente
         pathVerde.getElements().add(new LineTo(300, 725)); // vai pra esquerda
-      }
       // fim regiao critica 1
       pathVerde.getElements().add(new LineTo(300, 825)); // vai pra frente
       
@@ -145,7 +137,9 @@ public class TremVerde extends Thread {
   public void run () {
     // Listener que chama o metodo ajustarVelocidade toda vez que o slider é alterado
     aceleradorVerde.valueProperty().addListener((observable, oldValue, newValue) -> {
-      ajustarVelocidade(newValue.doubleValue());
+      synchronized (lock) {
+        ajustarVelocidade(newValue.doubleValue());
+      }
     });
   } // fim do metodo run
   

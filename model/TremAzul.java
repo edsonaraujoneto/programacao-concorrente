@@ -80,19 +80,16 @@ public class TremAzul extends Thread {
       pathAzul.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathAzul.getElements().add(new LineTo(300, 220)); // vai pra frente
       // inicio regiao critica 1
-      synchronized (lock) {
         pathAzul.getElements().add(new LineTo(266, 190)); // vai pra esquerda
         pathAzul.getElements().add(new LineTo(266, 120)); // vai pra frente
         pathAzul.getElements().add(new LineTo(300, 90)); // vai pra direita
-      }
       // fim regiao critica 1
       pathAzul.getElements().add(new LineTo(300, 5)); // vai pra frente
       // inicio regiao critica 2
-      synchronized (lock) {
+
         pathAzul.getElements().add(new LineTo(266, -50)); // vai pra esquerda
         pathAzul.getElements().add(new LineTo(266, -100)); // vai pra frente
         pathAzul.getElements().add(new LineTo(300, -140)); // vai pra direita
-      }
       // fim regiao critica 2
       pathAzul.getElements().add(new LineTo(300, -220)); // vai pra frente
       
@@ -104,19 +101,15 @@ public class TremAzul extends Thread {
       pathAzul.getElements().add(new MoveTo(300, 300)); // ponto de partida
       pathAzul.getElements().add(new LineTo(300, 380)); // vai pra frente
       // inicio regiao critica 2
-      synchronized (lock) {
         pathAzul.getElements().add(new LineTo(268, 400)); // vai pra esquerda
         pathAzul.getElements().add(new LineTo(268, 470)); // vai pra frente
         pathAzul.getElements().add(new LineTo(300, 500)); // vai pra direita
-      }
       // fim regiao critica 2
       pathAzul.getElements().add(new LineTo(300, 585)); // vai pra frente
       // inicio regiao critica 1
-      synchronized (lock) {
         pathAzul.getElements().add(new LineTo(268, 635)); // vai pra esquerda
         pathAzul.getElements().add(new LineTo(268, 685)); // vai pra frente
         pathAzul.getElements().add(new LineTo(300, 725)); // vai pra direita
-      }
       // fim regiao critica 1
       pathAzul.getElements().add(new LineTo(300, 825)); // vai pra frente
       
@@ -147,7 +140,9 @@ public class TremAzul extends Thread {
   public void run () {
     // Listener que chama o metodo ajustarVelocidade toda vez que o slider é alterado
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
-      ajustarVelocidade(newValue.doubleValue());
+      synchronized (lock) {
+        ajustarVelocidade(newValue.doubleValue());
+      }
     });
   } // fim do metodo run
   

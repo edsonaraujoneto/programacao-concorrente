@@ -43,6 +43,15 @@ public class PlataformaController implements Initializable {
   private RadioButton radioCimaCima;
 
   @FXML
+  private RadioButton radioEstritaAlternancia;
+
+  @FXML
+  private RadioButton radioSolucaoPeterson;
+
+  @FXML
+  private RadioButton radioVariavelDeTravamento;
+
+  @FXML
   private ImageView tremAzul;
 
   @FXML
@@ -86,7 +95,7 @@ public class PlataformaController implements Initializable {
     mediaPlayer = new MediaPlayer(media);
     
     // criando as threads e passando como parametro as imagens dos dois lados e os sliders.
-    tremAzulThread = new TremAzul(tremAzul,tremAzulLadoOposto, aceleradorAzul, lock );
+    tremAzulThread = new TremAzul(tremAzul,tremAzulLadoOposto, aceleradorAzul, lock);
     tremVerdeThread = new TremVerde(tremVerde,tremVerdeLadoOposto, aceleradorVerde, lock);
     tremAzulThread.start();
     tremVerdeThread.start();
@@ -198,5 +207,22 @@ public class PlataformaController implements Initializable {
       ++entrada;
     }
   } // fim do metodo clicouMute
+  
+  @FXML
+  public void clicouEstritaAlternancia(ActionEvent event) {
+    radioVariavelDeTravamento.setSelected(false);
+    radioSolucaoPeterson.setSelected(false);
+  }
 
+  @FXML
+  public void clicouSolucaoPeterson(ActionEvent event) {
+    radioVariavelDeTravamento.setSelected(false);
+    radioEstritaAlternancia.setSelected(false);
+  }
+
+  @FXML
+  public void clicouVariavelDeTravamento(ActionEvent event) {
+    radioEstritaAlternancia.setSelected(false);  
+    radioSolucaoPeterson.setSelected(false);
+  }
 } // Fim do PlataformaController
