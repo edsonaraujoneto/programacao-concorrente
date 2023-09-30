@@ -8,6 +8,7 @@
 *************************************************************** */
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,10 @@ public class Principal extends Application {
     primaryStage.setResizable(false); // evitar Maximizar
     primaryStage.setScene(scene);
     primaryStage.getIcons().add(icon);
+    primaryStage.setOnCloseRequest(t -> {
+      Platform.exit();
+      System.exit(0);
+    });
     primaryStage.show();
   } // fim do metodo start
 }// fim da classe Principal

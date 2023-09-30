@@ -71,23 +71,22 @@ public class PlataformaController implements Initializable {
   
   private TremVerde tremVerdeThread;
 
-  private static final Object lock = new Object();
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // Configuracoes basicas dos sliders
-    aceleradorAzul.setMin(0);
-    aceleradorAzul.setMax(5);
-    aceleradorAzul.setValue(0);
-    aceleradorAzul.setShowTickMarks(true);
-    aceleradorAzul.setMajorTickUnit(1);
-    aceleradorAzul.setShowTickLabels(true);
-    aceleradorVerde.setMin(0);
-    aceleradorVerde.setMax(5);
-    aceleradorVerde.setValue(0);
-    aceleradorVerde.setShowTickMarks(true);
-    aceleradorVerde.setMajorTickUnit(1);
-    aceleradorVerde.setShowTickLabels(true);
+    getAceleradorAzul().setMin(0);
+    getAceleradorAzul().setMax(5);
+    getAceleradorAzul().setValue(0);
+    getAceleradorAzul().setShowTickMarks(true);
+    getAceleradorAzul().setMajorTickUnit(1);
+    getAceleradorAzul().setShowTickLabels(true);
+    getAceleradorVerde().setMin(0);
+    getAceleradorVerde().setMax(5);
+    getAceleradorVerde().setValue(0);
+    getAceleradorVerde().setShowTickMarks(true);
+    getAceleradorVerde().setMajorTickUnit(1);
+    getAceleradorVerde().setShowTickLabels(true);
     
     // carregar arquivo de audio
     String audioFile = getClass().getResource("/music/somDeTrem.mp3").toExternalForm();
@@ -95,12 +94,48 @@ public class PlataformaController implements Initializable {
     mediaPlayer = new MediaPlayer(media);
     
     // criando as threads e passando como parametro as imagens dos dois lados e os sliders.
-    tremAzulThread = new TremAzul(tremAzul,tremAzulLadoOposto, aceleradorAzul, lock);
-    tremVerdeThread = new TremVerde(tremVerde,tremVerdeLadoOposto, aceleradorVerde, lock);
-    tremAzulThread.start();
-    tremVerdeThread.start();
+    tremAzulThread = new TremAzul(this);
+    tremVerdeThread = new TremVerde(this);
+    
+    /****************************************************/
+    radioVariavelDeTravamento.setSelected(true);
+    radioCimaCima.setSelected(true);
+    ajustarPosicao();
+    /****************************************************/
+    
+    aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
+      iniciarThread(newValue.doubleValue());
+    });
+    
+    aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
+      iniciarThread(newValue.doubleValue());
+    });
 
   } // fim da classe initialize
+  
+  // iniciar a thread apenas se a velocidade foi alterada.
+  public void iniciarThread (double velocidade) {
+    if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+      if (!tremAzulThread.isAlive()) {
+        System.out.println("Iniciou threadAzul");
+        tremAzulThread.start();
+      } // fim if tremAzul
+    } // fim if aceleradorAzul
+    
+    if (aceleradorVerde.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+      if (!tremVerdeThread.isAlive()) {
+        System.out.println("Iniciou ThreadVerde");
+        tremVerdeThread.start();
+      }
+    }
+  } // fim iniciarThread
+  
+  //Verificar se o usuario selecionou a posicao do trem
+  public boolean selecionouPosicao() {
+    if (radioCimaCima.isSelected() || radioBaixoBaixo.isSelected() || radioBaixoCima.isSelected() || radioCimaBaixo.isSelected()) 
+      return true;
+    return false;
+  }
 
   /*********************************************************************
   * Metodo: ajustarPosicao
@@ -179,15 +214,15 @@ public class PlataformaController implements Initializable {
     radioBaixoCima.setSelected(false);
     
     if (!tremAzulThread.isAlive()) { 
-      tremAzulThread.parar();
+      tremAzulThread.resetar();
       tremAzulThread.interrupt();
       mediaPlayer.stop();
     }
-    if (!tremVerdeThread.isAlive()) { 
+    /*if (!tremVerdeThread.isAlive()) { 
       tremVerdeThread.parar();
       tremVerdeThread.interrupt();
       mediaPlayer.stop();
-    }
+    }*/
   } // Fim do metodo clicouReiniciar
 
   /*********************************************************************
@@ -201,13 +236,19 @@ public class PlataformaController implements Initializable {
     if (entrada % 2 == 0) { // entrada eh a variavel inteira inicializada com 1
       mediaPlayer.stop();
       ++entrada;
-    } else if (aceleradorAzul.getValue() != 0 || aceleradorVerde.getValue() != 0) { // aceleradorAzul e aceleradorVerde sao os sliders(velocimetro) do trem
+    } else if (getAceleradorAzul().getValue() != 0 || getAceleradorVerde().getValue() != 0) { // aceleradorAzul e aceleradorVerde sao os sliders(velocimetro) do trem
       // condicao para dar possibilidade de tocar o audio novamente apos desativa-lo
       mediaPlayer.play();
       ++entrada;
     }
   } // fim do metodo clicouMute
   
+  // verificar se selecionou variavel de tratamento
+  public boolean selecionouTratamentoDeColisao() {
+    if (radioVariavelDeTravamento.isSelected() || radioSolucaoPeterson.isSelected() || radioEstritaAlternancia.isSelected())
+      return true;
+    return false;
+  }
   @FXML
   public void clicouEstritaAlternancia(ActionEvent event) {
     radioVariavelDeTravamento.setSelected(false);
@@ -225,4 +266,30 @@ public class PlataformaController implements Initializable {
     radioEstritaAlternancia.setSelected(false);  
     radioSolucaoPeterson.setSelected(false);
   }
+
+  public ImageView getTremAzul() {
+    return tremAzul;
+  }
+
+  public ImageView getTremVerde() {
+    return tremVerde;
+  }
+
+  public ImageView getTremVerdeLadoOposto() {
+    return tremVerdeLadoOposto;
+  }
+
+  public ImageView getTremAzulLadoOposto() {
+    return tremAzulLadoOposto;
+  }
+
+  public Slider getAceleradorAzul() {
+    return aceleradorAzul;
+  }
+
+  public Slider getAceleradorVerde() {
+    return aceleradorVerde;
+  }
+  
+  
 } // Fim do PlataformaController
