@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -97,9 +98,30 @@ public class PlataformaController implements Initializable {
     tremAzulThread = new TremAzul(this);
     tremVerdeThread = new TremVerde(this);
     
+    ToggleGroup grupoRadiosButtonsDirecao = new ToggleGroup();
+    radioBaixoBaixo.setToggleGroup(grupoRadiosButtonsDirecao);
+    radioBaixoCima.setToggleGroup(grupoRadiosButtonsDirecao);
+    radioCimaCima.setToggleGroup(grupoRadiosButtonsDirecao);
+    radioCimaBaixo.setToggleGroup(grupoRadiosButtonsDirecao);
+    
+    ToggleGroup grupoRadiosButtonsTratamento = new ToggleGroup();
+    radioVariavelDeTravamento.setToggleGroup(grupoRadiosButtonsTratamento);
+    radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
+    radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
+    
+    grupoRadiosButtonsDirecao.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
+      if (newValue != null) {
+        ajustarPosicao();
+      }
+    });
+    
+    grupoRadiosButtonsTratamento.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
+
+    });
+    
     /****************************************************/
     radioVariavelDeTravamento.setSelected(true);
-    radioCimaCima.setSelected(true);
+    getRadioCimaCima().setSelected(true);
     ajustarPosicao();
     /****************************************************/
     
@@ -130,9 +152,10 @@ public class PlataformaController implements Initializable {
     }
   } // fim iniciarThread
   
+  
   //Verificar se o usuario selecionou a posicao do trem
   public boolean selecionouPosicao() {
-    if (radioCimaCima.isSelected() || radioBaixoBaixo.isSelected() || radioBaixoCima.isSelected() || radioCimaBaixo.isSelected()) 
+    if (getRadioCimaCima().isSelected() || getRadioBaixoBaixo().isSelected() || getRadioBaixoCima().isSelected() || getRadioCimaBaixo().isSelected()) 
       return true;
     return false;
   }
@@ -144,61 +167,23 @@ public class PlataformaController implements Initializable {
   * Retorno: void
   ******************************************************************* */
   public void ajustarPosicao() {
-    if (radioCimaCima.isSelected()) {
+    if (getRadioCimaCima().isSelected()) {
       tremAzulThread.setDirecao("Cima");
       tremVerdeThread.setDirecao("Cima");
     }
-    else if(radioCimaBaixo.isSelected()) {
+    else if(getRadioCimaBaixo().isSelected()) {
       tremAzulThread.setDirecao("Baixo");
       tremVerdeThread.setDirecao("Cima");
     }
-    else if(radioBaixoCima.isSelected()) {
+    else if(getRadioBaixoCima().isSelected()) {
       tremAzulThread.setDirecao("Cima");
       tremVerdeThread.setDirecao("Baixo");
     }
-    else if(radioBaixoBaixo.isSelected()) {
+    else if(getRadioBaixoBaixo().isSelected()) {
       tremAzulThread.setDirecao("Baixo");
       tremVerdeThread.setDirecao("Baixo");
     }
   } // fim ajustarPosicao
-
-  /*********************************************************************
-  * Metodos: clicouRadioBaixoBaixo | clicouRadioBaixoCima | clicouRadioCimaBaixo | clicouRadioBaixoBaixo
-  * Funcao: Evitar que outros radiosButtons sejam selecionados e configurar as posicoes dos trens
-  * Parametros: Evento de clique
-  * Retorno: void
-  ******************************************************************* */
-  @FXML
-  public void clicouRadioBaixoBaixo(ActionEvent event) {
-    radioCimaBaixo.setSelected(false);
-    radioCimaCima.setSelected(false);
-    radioBaixoCima.setSelected(false);
-    ajustarPosicao();
-  } // fim do metodo clicouRadioBaixoBaixo
-
-  @FXML
-  public void clicouRadioBaixoCima(ActionEvent event) {
-    radioCimaBaixo.setSelected(false);
-    radioCimaCima.setSelected(false);
-    radioBaixoBaixo.setSelected(false);
-    ajustarPosicao();
-  } // fim clicouRadioBaixoCima
-
-  @FXML
-  public void clicouRadioCimaBaixo(ActionEvent event) {
-    radioBaixoBaixo.setSelected(false);
-    radioCimaCima.setSelected(false);
-    radioBaixoCima.setSelected(false);
-    ajustarPosicao();
-  } // fim do metodo clicouRadioCimaBaixo
-
-  @FXML
-  public void clicouRadioCimaCima(ActionEvent event) {
-    radioCimaBaixo.setSelected(false);
-    radioBaixoBaixo.setSelected(false);
-    radioBaixoCima.setSelected(false);
-    ajustarPosicao();
-  } // fim do metodo clicouRadioCimaCima
 
   /*********************************************************************
   * Metodo: clicouReiniciar
@@ -208,10 +193,10 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
-    radioCimaCima.setSelected(false);
-    radioCimaBaixo.setSelected(false);
-    radioBaixoBaixo.setSelected(false);
-    radioBaixoCima.setSelected(false);
+    getRadioCimaCima().setSelected(false);
+    getRadioCimaBaixo().setSelected(false);
+    getRadioBaixoBaixo().setSelected(false);
+    getRadioBaixoCima().setSelected(false);
     
     if (!tremAzulThread.isAlive()) { 
       tremAzulThread.resetar();
@@ -249,23 +234,6 @@ public class PlataformaController implements Initializable {
       return true;
     return false;
   }
-  @FXML
-  public void clicouEstritaAlternancia(ActionEvent event) {
-    radioVariavelDeTravamento.setSelected(false);
-    radioSolucaoPeterson.setSelected(false);
-  }
-
-  @FXML
-  public void clicouSolucaoPeterson(ActionEvent event) {
-    radioVariavelDeTravamento.setSelected(false);
-    radioEstritaAlternancia.setSelected(false);
-  }
-
-  @FXML
-  public void clicouVariavelDeTravamento(ActionEvent event) {
-    radioEstritaAlternancia.setSelected(false);  
-    radioSolucaoPeterson.setSelected(false);
-  }
 
   public ImageView getTremAzul() {
     return tremAzul;
@@ -290,6 +258,29 @@ public class PlataformaController implements Initializable {
   public Slider getAceleradorVerde() {
     return aceleradorVerde;
   }
+  
+  public boolean tremSubindo () {
+    if (radioCimaCima.isSelected() || radioBaixoCima.isSelected())
+      return true;
+    return false;
+  }
+
+  public RadioButton getRadioBaixoBaixo() {
+    return radioBaixoBaixo;
+  }
+
+  public RadioButton getRadioBaixoCima() {
+    return radioBaixoCima;
+  }
+
+  public RadioButton getRadioCimaBaixo() {
+    return radioCimaBaixo;
+  }
+
+  public RadioButton getRadioCimaCima() {
+    return radioCimaCima;
+  }
+
   
   
 } // Fim do PlataformaController

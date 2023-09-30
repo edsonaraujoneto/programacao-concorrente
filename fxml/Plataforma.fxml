@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
   <children>
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -127,13 +127,13 @@
     </Button>
     <Slider fx:id="aceleradorAzul" focusTraversable="false" layoutX="418.0" layoutY="312.0" orientation="VERTICAL" />
     <Slider fx:id="aceleradorVerde" layoutX="385.0" layoutY="312.0" orientation="VERTICAL" />
-    <RadioButton fx:id="radioCimaCima" layoutX="460.0" layoutY="316.0" mnemonicParsing="false" onAction="#clicouRadioCimaCima" />
-    <RadioButton fx:id="radioBaixoBaixo" layoutX="460.0" layoutY="357.0" mnemonicParsing="false" onAction="#clicouRadioBaixoBaixo" />
-    <RadioButton fx:id="radioCimaBaixo" layoutX="460.0" layoutY="398.0" mnemonicParsing="false" onAction="#clicouRadioCimaBaixo" />
-    <RadioButton fx:id="radioBaixoCima" layoutX="460.0" layoutY="436.0" mnemonicParsing="false" onAction="#clicouRadioBaixoCima" />
-      <RadioButton fx:id="radioVariavelDeTravamento" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" onAction="#clicouVariavelDeTravamento" />
-      <RadioButton fx:id="radioEstritaAlternancia" layoutX="370.0" layoutY="133.0" mnemonicParsing="false" onAction="#clicouEstritaAlternancia" />
-      <RadioButton fx:id="radioSolucaoPeterson" layoutX="371.0" layoutY="164.0" mnemonicParsing="false" onAction="#clicouSolucaoPeterson" />
+    <RadioButton fx:id="radioCimaCima" layoutX="460.0" layoutY="316.0" mnemonicParsing="false" />
+    <RadioButton fx:id="radioBaixoBaixo" layoutX="460.0" layoutY="357.0" mnemonicParsing="false" />
+    <RadioButton fx:id="radioCimaBaixo" layoutX="460.0" layoutY="398.0" mnemonicParsing="false" />
+    <RadioButton fx:id="radioBaixoCima" layoutX="460.0" layoutY="436.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioVariavelDeTravamento" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioEstritaAlternancia" layoutX="370.0" layoutY="133.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioSolucaoPeterson" layoutX="371.0" layoutY="164.0" mnemonicParsing="false" />
       <Text fill="WHITE" layoutX="370.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidade">
          <font>
             <Font name="System Bold" size="15.0" />
