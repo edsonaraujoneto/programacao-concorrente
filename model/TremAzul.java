@@ -28,6 +28,8 @@ public class TremAzul extends Thread {
   
   private double velocidadeTrem;
   
+  private boolean pausarThread = false;
+  
   // construtor da classe
   public TremAzul (PlataformaController controller) {
     this.controller = controller;
@@ -87,9 +89,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) getVelocidadeTrem());
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            break;
         }
       }
     } else if (lado.equals("Esquerda")){
@@ -109,9 +111,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) getVelocidadeTrem());
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            break;
         }
       }    
     }
@@ -119,7 +121,7 @@ public class TremAzul extends Thread {
   
   public void andarTrem (int posicaoY, String direcao, ImageView trem) throws InterruptedException {
     
-    if (direcao.equals("Subir")) {
+    if (direcao.equals("Subir") ) {
       double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         y--;
@@ -129,14 +131,13 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) getVelocidadeTrem());
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
+            break;
         }
       }
     }
-    else if (direcao.equals("Descer")){
+    else if (direcao.equals("Descer") ){
        double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         y++;
@@ -146,23 +147,29 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) getVelocidadeTrem());
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
+            break;
         }
       }     
     }
   }
   
-  
-   
   @Override
   public void run () {
     System.out.println("Executando ThreadTremAzul");
       while (true) {
+        synchronized (this) {
+          while (pausarThread) {
+            try {
+              wait();
+            } catch (InterruptedException ex) {
+              Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+        }
         try {
-          if (controller.tremSubindo()) {
+          if (controller.tremSubindo() ) {
             this.andarTrem( 100,"Subir", tremAzul);
             // inicio regiao critica embaixo
             this.girarTrem( 33,"Esquerda", tremAzul);
@@ -177,8 +184,10 @@ public class TremAzul extends Thread {
             // fim regiao critica cima
             this.andarTrem(100,"Subir",tremAzul);
             tremAzul.setX(0.0);
+            Platform.runLater(() -> tremAzul.setX(0.0));
             tremAzul.setY(0.0);
-          } else {
+            Platform.runLater(() -> tremAzul.setY(0.0));
+          } else  {
             this.andarTrem( 100,"Descer",tremAzulLadoOposto);
             // inicio regiao critica embaixo
             this.girarTrem( 33,"Esquerda",tremAzulLadoOposto);
@@ -193,7 +202,9 @@ public class TremAzul extends Thread {
             // fim regiao critica cima
             this.andarTrem(100,"Descer",tremAzulLadoOposto);
             tremAzulLadoOposto.setX(0.0);
+            Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
             tremAzulLadoOposto.setY(0.0);
+            Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
           }
         } catch (InterruptedException ex) {
           Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,5 +219,10 @@ public class TremAzul extends Thread {
   public void setVelocidadeTrem(double velocidadeTrem) {
     this.velocidadeTrem = velocidadeTrem;
   }
+
+  public void setPausarThread(boolean pausarThread) {
+    this.pausarThread = pausarThread;
+  }
+  
   
 } // fim da classe

@@ -11,6 +11,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -133,20 +135,31 @@ public class PlataformaController implements Initializable {
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
       iniciarThread(newValue.doubleValue());
+
     });
 
   } // fim da classe initialize
   
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThread (double velocidade) {
-    tremAzulThread.setVelocidadeTrem( (velocidade*4));
-    System.out.println( velocidade*4);
+    System.out.println(20/velocidade);
     if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremAzulThread.isAlive()) {
         System.out.println("Iniciou threadAzul");
         tremAzulThread.start();
       } // fim if tremAzul
+      tremAzulThread.setVelocidadeTrem( 20/velocidade);
+      synchronized (tremAzulThread) {
+            tremAzulThread.setPausarThread(false);
+            tremAzulThread.notify();
+      }
     } // fim if aceleradorAzul
+    else if(aceleradorAzul.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+      synchronized (tremAzulThread) {
+        tremAzulThread.setPausarThread(true);
+      }
+    }
+
     
     if (aceleradorVerde.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremVerdeThread.isAlive()) {
