@@ -78,6 +78,10 @@ public class TremAzul extends Thread {
   public void resetar() {
     tremAzul.setVisible(false);
     tremAzulLadoOposto.setVisible(false);
+    Platform.runLater(() -> tremAzul.setX(0.0));
+    Platform.runLater(() -> tremAzul.setY(0.0));
+    Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
+    Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
     aceleradorAzul.setValue(0);
   }
   

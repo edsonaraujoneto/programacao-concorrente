@@ -138,11 +138,9 @@ public class PlataformaController implements Initializable {
   
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThreadTremAzul (double velocidade) {
-    System.out.println(20/velocidade);
     
     if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremAzulThread.isAlive()) {
-        System.out.println("Iniciou threadAzul");
         tremAzulThread.start();
       } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade);
@@ -159,11 +157,9 @@ public class PlataformaController implements Initializable {
   } // fim iniciarThread
   
     public void iniciarThreadTremVerde (double velocidade) {
-    System.out.println(20/velocidade);
     
     if (aceleradorVerde.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremVerdeThread.isAlive()) {
-        System.out.println("Iniciou threadAzul");
         tremVerdeThread.start();
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade);
@@ -194,9 +190,11 @@ public class PlataformaController implements Initializable {
   * Retorno: void
   ******************************************************************* */
   public void ajustarPosicao() {
-    if (tremAzulThread.isAlive() || tremAzulThread.isAlive()) {
-      
-    
+    if (tremAzulThread.isAlive()) {
+      tremAzulThread.interrupt();
+    }
+    if (tremVerdeThread.isAlive()) {
+      tremVerdeThread.interrupt();
     }
     if (getRadioCimaCima().isSelected()) {
       tremAzulThread.setDirecao("Cima");
@@ -234,11 +232,11 @@ public class PlataformaController implements Initializable {
       tremAzulThread.interrupt();
       mediaPlayer.stop();
     }
-    /*if (!tremVerdeThread.isAlive()) { 
-      tremVerdeThread.parar();
+    if (!tremVerdeThread.isAlive()) { 
+      tremVerdeThread.resetar();
       tremVerdeThread.interrupt();
       mediaPlayer.stop();
-    }*/
+    }
   } // Fim do metodo clicouReiniciar
 
   /*********************************************************************

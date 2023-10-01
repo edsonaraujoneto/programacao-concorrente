@@ -36,7 +36,6 @@ public class TremVerde extends Thread {
     this.aceleradorVerde = controller.getAceleradorVerde();
     this.tremVerde = controller.getTremVerde();
     this.tremVerdeLadoOposto = controller.getTremVerdeLadoOposto();
-
   }
   
   public void verificar() {
@@ -78,6 +77,10 @@ public class TremVerde extends Thread {
   public void resetar() {
     tremVerde.setVisible(false);
     tremVerdeLadoOposto.setVisible(false);
+    Platform.runLater(() -> tremVerde.setX(0.0));
+    Platform.runLater(() -> tremVerde.setY(0.0));
+    Platform.runLater(() -> tremVerdeLadoOposto.setX(0.0));
+    Platform.runLater(() -> tremVerdeLadoOposto.setY(0.0));
     aceleradorVerde.setValue(0);
   }
   
