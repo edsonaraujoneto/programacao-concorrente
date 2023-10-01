@@ -126,18 +126,18 @@ public class PlataformaController implements Initializable {
     ajustarPosicao();
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
-      iniciarThread(newValue.doubleValue());
+      iniciarThreadTremAzul(newValue.doubleValue());
     });
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
-      iniciarThread(newValue.doubleValue());
+      iniciarThreadTremVerde(newValue.doubleValue());
 
     });
 
   } // fim da classe initialize
   
   // iniciar a thread apenas se a velocidade foi alterada.
-  public void iniciarThread (double velocidade) {
+  public void iniciarThreadTremAzul (double velocidade) {
     System.out.println(20/velocidade);
     
     if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
@@ -156,19 +156,22 @@ public class PlataformaController implements Initializable {
         tremAzulThread.setPausarThread(true);
       }
     }
-
+  } // fim iniciarThread
+  
+    public void iniciarThreadTremVerde (double velocidade) {
+    System.out.println(20/velocidade);
     
     if (aceleradorVerde.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremVerdeThread.isAlive()) {
-        System.out.println("Iniciou ThreadVerde");
+        System.out.println("Iniciou threadAzul");
         tremVerdeThread.start();
-      }
+      } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade);
       synchronized (tremVerdeThread) {
         tremVerdeThread.setPausarThread(false);
         tremVerdeThread.notify();
       }
-    }
+    } 
     else if(aceleradorVerde.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       synchronized (tremVerdeThread) {
         tremVerdeThread.setPausarThread(true);
