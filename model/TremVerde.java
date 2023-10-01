@@ -4,7 +4,7 @@ package model;
 * Matricula........: 202210169
 * Inicio...........: 17/08/2023
 * Ultima alteracao.: 25/09/2023
-* Nome.............: Thread trem azul
+* Nome.............: Thread trem Verde
 * Funcao...........: Iniciar a thread de acordo com a direcao escolhida e variar a velocidade ao mudar o slider
 *************************************************************** */
 import controller.PlataformaController;
@@ -20,26 +20,36 @@ public class TremVerde extends Thread {
   
   private final ImageView tremVerdeLadoOposto;
   
+  private ImageView tremMovendo;
+  
   private final Slider aceleradorVerde;
   
-  private boolean movimentar = true;
-  
   private PlataformaController controller;
+  
+  private double velocidadeTrem;
+  
+  private boolean pausarThread = false;
   
   // construtor da classe
   public TremVerde (PlataformaController controller) {
     this.controller = controller;
-    tremVerde = controller.getTremVerde();
-    tremVerdeLadoOposto = controller.getTremVerdeLadoOposto();
-    aceleradorVerde = controller.getAceleradorVerde();
+    this.aceleradorVerde = controller.getAceleradorVerde();
+    this.tremVerde = controller.getTremVerde();
+    this.tremVerdeLadoOposto = controller.getTremVerdeLadoOposto();
+
   }
-    
-  /*********************************************************************
-  * Metodo: ajustarVelocidade
-  * Funcao: mudar a velocidade do trem de acordo com o valor do slider
-  * Parametro: double velocidade
-  * Retorno: void
-  ******************************************************************* */ 
+  
+  public void verificar() {
+    synchronized (this) {
+      while (pausarThread) {
+        try {
+          wait();
+        } catch (InterruptedException ex) {
+          Logger.getLogger(TremVerde.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+    }
+  }
   
   /*********************************************************************
   * Metodo: setDirecao
@@ -66,101 +76,163 @@ public class TremVerde extends Thread {
   * Retorno: void
   ******************************************************************* */
   public void resetar() {
-    tremVerdeLadoOposto.setVisible(false);
     tremVerde.setVisible(false);
+    tremVerdeLadoOposto.setVisible(false);
     aceleradorVerde.setValue(0);
   }
-  public void girarTrem (int posicao, double rotacao, String lado) throws InterruptedException {
-
-    tremVerde.setRotate(rotacao);
+  
+  public void girarTrem (int posicao,String lado, ImageView trem) throws InterruptedException {
     
-    double x = tremVerde.getX();
-    double y = tremVerde.getY();
+    double x = trem.getX();
+    double y = trem.getY();
     if (lado.equals("Direita")) {
       for (int c = 0; c < posicao; c++) {
+        verificar();
         x++;
-        y--;
+        if(!controller.tremSubindo())
+          y++;
+        else
+          y--;
         final double finalX = x;
         final double finalY = y;
 
         // Usar Platform.runLater() para atualizar a interface do usuário
         Platform.runLater(() -> {
-          tremVerde.setX(finalX);
-          tremVerde.setY(finalY);
+          trem.setX(finalX);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            break;
         }
       }
-    } else {
+    } else if (lado.equals("Esquerda")){
         for (int c = 0; c < posicao; c++) {
+        verificar();
         x--;
-        y--;
+        if(!controller.tremSubindo())
+          y++;
+        else
+          y--;
         final double finalX = x;
         final double finalY = y;
 
         // Usar Platform.runLater() para atualizar a interface do usuário
         Platform.runLater(() -> {
-          tremVerde.setX(finalX);
-          tremVerde.setY(finalY);
+          trem.setX(finalX);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            break;
         }
       }    
     }
   }
   
-  public void subirTrem (int posicaoY) throws InterruptedException {
-    tremVerde.setRotate(0.0);
+  public void andarTrem (int posicaoY, String direcao, ImageView trem) throws InterruptedException {
     
-    double y = tremVerde.getY();
-    for (int c = 0; c < posicaoY; c++) {
-      y++;
-      final double finalY = y;
-      Platform.runLater(() -> {
-        tremVerde.setY(finalY);
-      });
+    if (direcao.equals("Subir") ) {
+      double y = trem.getY();
+      for (int c = 0; c < posicaoY; c++) {
+        verificar();
+        y--;
+        final double finalY = y;
+        Platform.runLater(() -> {
+          trem.setY(finalY);
+        });
 
-      try {
-          Thread.sleep(10);
-      } catch (InterruptedException e) {
-          e.printStackTrace();
+        try {
+            Thread.sleep((long) velocidadeTrem);
+        } catch (InterruptedException e) {
+            break;
+        }
       }
     }
+    else if (direcao.equals("Descer") ){
+       double y = trem.getY();
+      for (int c = 0; c < posicaoY; c++) {
+        verificar(); // verificar se não foi pausado o trem
+        y++;
+        final double finalY = y;
+        Platform.runLater(() -> {
+          trem.setY(finalY);
+        });
 
+        try {
+            Thread.sleep((long) velocidadeTrem);
+        } catch (InterruptedException e) {
+            break;
+        }
+      }     
+    }
   }
   
   @Override
   public void run () {
     System.out.println("Executando ThreadTremVerde");
-    while (true) {
-      try {
-        this.subirTrem( 100);
-        // inicio regiao critica embaixo
-        this.girarTrem( 33,-15,"Esquerda");
-        this.subirTrem( 45);
-        this.girarTrem(33,15,"Direita");
-        // fim regiao critica embaixo
-        this.subirTrem( 100);
-        //inicio regiao critica cima
-        this.girarTrem( 33,-15, "Esquerda");
-        this.subirTrem(45);
-        this.girarTrem(33,15,"Direita");
-        // fim regiao critica cima
-        this.subirTrem(100);
-        tremVerde.setX(0);
-        tremVerde.setY(0);
-      } catch (InterruptedException ex) {
-        Logger.getLogger(TremVerde.class.getName()).log(Level.SEVERE, null, ex);
+      while (true) { 
+        try {
+          if (controller.tremSubindo() ) {
+            this.andarTrem( 90,"Subir", tremVerde);
+            // inicio regiao critica embaixo
+            this.girarTrem( 30,"Direita", tremVerde);
+            this.andarTrem( 55,"Subir",tremVerde);
+            this.girarTrem(30,"Esquerda",tremVerde);
+            // fim regiao critica embaixo
+            this.andarTrem( 95,"Subir",tremVerde);
+            //inicio regiao critica cima
+            this.girarTrem( 30, "Direita",tremVerde);
+            this.andarTrem(60,"Subir",tremVerde);
+            this.girarTrem(30,"Esquerda",tremVerde);
+            // fim regiao critica cima
+            this.andarTrem(100,"Subir",tremVerde);
+            
+            tremVerde.setX(0.0);
+            Platform.runLater(() -> tremVerde.setX(0.0));
+            tremVerde.setY(0.0);
+            Platform.runLater(() -> tremVerde.setY(0.0));
+          } else  {
+            this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
+            // inicio regiao critica embaixo
+            this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
+            this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
+            this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            // fim regiao critica embaixo
+            this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
+            //inicio regiao critica cima
+            this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
+            this.andarTrem(75,"Descer",tremVerdeLadoOposto);
+            this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            // fim regiao critica cima
+            this.andarTrem(120,"Descer",tremVerdeLadoOposto);
+            
+            tremVerdeLadoOposto.setX(0.0);
+            Platform.runLater(() -> tremVerdeLadoOposto.setX(0.0));
+            tremVerdeLadoOposto.setY(0.0);
+            Platform.runLater(() -> tremVerdeLadoOposto.setY(0.0));
+          }
+        } catch (InterruptedException ex) {
+          Logger.getLogger(TremVerde.class.getName()).log(Level.SEVERE, null, ex);
+        }
       }
-    }
   } // fim do metodo run
+
+  public double getVelocidadeTrem() {
+    return velocidadeTrem;
+  }
+
+  public void setVelocidadeTrem(double velocidadeTrem) {
+    this.velocidadeTrem = velocidadeTrem;
+  }
+
+  public void setPausarThread(boolean pausarThread) {
+    this.pausarThread = pausarThread;
+  }
+  
   
 } // fim da classe

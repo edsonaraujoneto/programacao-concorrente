@@ -156,7 +156,7 @@ public class TremAzul extends Thread {
     else if (direcao.equals("Descer") ){
        double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
-        verificar();
+        verificar(); // verificar se não foi pausado o trem
         y++;
         final double finalY = y;
         Platform.runLater(() -> {
@@ -178,37 +178,39 @@ public class TremAzul extends Thread {
       while (true) { 
         try {
           if (controller.tremSubindo() ) {
-            this.andarTrem( 100,"Subir", tremAzul);
+            this.andarTrem( 90,"Subir", tremAzul);
             // inicio regiao critica embaixo
             this.girarTrem( 33,"Esquerda", tremAzul);
             this.andarTrem( 55,"Subir",tremAzul);
-            this.girarTrem(33,"Direita",tremAzul);
+            this.girarTrem(30,"Direita",tremAzul);
             // fim regiao critica embaixo
-            this.andarTrem( 100,"Subir",tremAzul);
+            this.andarTrem( 95,"Subir",tremAzul);
             //inicio regiao critica cima
-            this.girarTrem( 33, "Esquerda",tremAzul);
-            this.andarTrem(45,"Subir",tremAzul);
+            this.girarTrem( 30, "Esquerda",tremAzul);
+            this.andarTrem(60,"Subir",tremAzul);
             this.girarTrem(33,"Direita",tremAzul);
             // fim regiao critica cima
             this.andarTrem(100,"Subir",tremAzul);
+            
             tremAzul.setX(0.0);
             Platform.runLater(() -> tremAzul.setX(0.0));
             tremAzul.setY(0.0);
             Platform.runLater(() -> tremAzul.setY(0.0));
           } else  {
-            this.andarTrem( 100,"Descer",tremAzulLadoOposto);
+            this.andarTrem( 80,"Descer",tremAzulLadoOposto);
             // inicio regiao critica embaixo
-            this.girarTrem( 33,"Esquerda",tremAzulLadoOposto);
+            this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
             this.andarTrem( 55,"Descer",tremAzulLadoOposto);
-            this.girarTrem(33,"Direita",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
             // fim regiao critica embaixo
-            this.andarTrem( 100,"Descer",tremAzulLadoOposto);
+            this.andarTrem( 85,"Descer",tremAzulLadoOposto);
             //inicio regiao critica cima
-            this.girarTrem( 33, "Esquerda",tremAzulLadoOposto);
-            this.andarTrem(45,"Descer",tremAzulLadoOposto);
-            this.girarTrem(33,"Direita",tremAzulLadoOposto);
+            this.girarTrem( 30, "Esquerda",tremAzulLadoOposto);
+            this.andarTrem(75,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
             // fim regiao critica cima
-            this.andarTrem(100,"Descer",tremAzulLadoOposto);
+            this.andarTrem(120,"Descer",tremAzulLadoOposto);
+            
             tremAzulLadoOposto.setX(0.0);
             Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
             tremAzulLadoOposto.setY(0.0);

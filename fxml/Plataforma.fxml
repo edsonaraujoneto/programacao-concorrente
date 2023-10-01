@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
   <children>
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -24,6 +24,26 @@
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@../images/trilhos.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="tremAzul" fitHeight="600.0" fitWidth="600.0" layoutX="-245.0" layoutY="148.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/trem2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="tremVerde" fitHeight="600.0" fitWidth="600.0" layoutX="-260.0" layoutY="148.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/trem1.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="tremAzulLadoOposto" fitHeight="600.0" fitWidth="600.0" layoutX="-245.0" layoutY="-446.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/trem2LadoOposto.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="tremVerdeLadoOposto" fitHeight="600.0" fitWidth="600.0" layoutX="-260.0" layoutY="-446.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/trem1LadoOposto.png" />
       </image>
     </ImageView>
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
@@ -84,26 +104,6 @@
     <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="506.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
       <image>
         <Image url="@../images/seta-direita.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="tremAzul" fitHeight="600.0" fitWidth="600.0" layoutX="-245.0" layoutY="148.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-        <Image url="@../images/trem2.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="tremVerde" fitHeight="600.0" fitWidth="600.0" layoutX="-260.0" layoutY="148.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-        <Image url="@../images/trem1.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="tremAzulLadoOposto" fitHeight="600.0" fitWidth="600.0" layoutX="-245.0" layoutY="-446.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-        <Image url="@../images/trem2LadoOposto.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="tremVerdeLadoOposto" fitHeight="600.0" fitWidth="600.0" layoutX="-260.0" layoutY="-446.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-        <Image url="@../images/trem1LadoOposto.png" />
       </image>
     </ImageView>
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">

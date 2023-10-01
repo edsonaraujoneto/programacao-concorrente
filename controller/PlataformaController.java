@@ -11,8 +11,6 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -122,13 +120,11 @@ public class PlataformaController implements Initializable {
     grupoRadiosButtonsTratamento.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
 
     });
-    
-    /****************************************************/
+
     radioVariavelDeTravamento.setSelected(true);
     getRadioCimaCima().setSelected(true);
     ajustarPosicao();
-    /****************************************************/
-    
+
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThread(newValue.doubleValue());
     });
@@ -148,13 +144,13 @@ public class PlataformaController implements Initializable {
       if (!tremAzulThread.isAlive()) {
         System.out.println("Iniciou threadAzul");
         tremAzulThread.start();
-      } // fim if tremAzul
+      } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade);
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(false);
         tremAzulThread.notify();
       }
-    } // fim if aceleradorAzul
+    } 
     else if(aceleradorAzul.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(true);
@@ -166,6 +162,16 @@ public class PlataformaController implements Initializable {
       if (!tremVerdeThread.isAlive()) {
         System.out.println("Iniciou ThreadVerde");
         tremVerdeThread.start();
+      }
+      tremVerdeThread.setVelocidadeTrem( 20/velocidade);
+      synchronized (tremVerdeThread) {
+        tremVerdeThread.setPausarThread(false);
+        tremVerdeThread.notify();
+      }
+    }
+    else if(aceleradorVerde.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+      synchronized (tremVerdeThread) {
+        tremVerdeThread.setPausarThread(true);
       }
     }
   } // fim iniciarThread
@@ -185,6 +191,10 @@ public class PlataformaController implements Initializable {
   * Retorno: void
   ******************************************************************* */
   public void ajustarPosicao() {
+    if (tremAzulThread.isAlive() || tremAzulThread.isAlive()) {
+      
+    
+    }
     if (getRadioCimaCima().isSelected()) {
       tremAzulThread.setDirecao("Cima");
       tremVerdeThread.setDirecao("Cima");
