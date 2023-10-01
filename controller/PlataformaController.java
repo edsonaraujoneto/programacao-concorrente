@@ -143,6 +143,7 @@ public class PlataformaController implements Initializable {
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThread (double velocidade) {
     System.out.println(20/velocidade);
+    
     if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremAzulThread.isAlive()) {
         System.out.println("Iniciou threadAzul");
@@ -150,8 +151,8 @@ public class PlataformaController implements Initializable {
       } // fim if tremAzul
       tremAzulThread.setVelocidadeTrem( 20/velocidade);
       synchronized (tremAzulThread) {
-            tremAzulThread.setPausarThread(false);
-            tremAzulThread.notify();
+        tremAzulThread.setPausarThread(false);
+        tremAzulThread.notify();
       }
     } // fim if aceleradorAzul
     else if(aceleradorAzul.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {

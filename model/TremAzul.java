@@ -36,6 +36,19 @@ public class TremAzul extends Thread {
     this.aceleradorAzul = controller.getAceleradorAzul();
     this.tremAzul = controller.getTremAzul();
     this.tremAzulLadoOposto = controller.getTremAzulLadoOposto();
+
+  }
+  
+  public void verificar() {
+    synchronized (this) {
+      while (pausarThread) {
+        try {
+          wait();
+        } catch (InterruptedException ex) {
+          Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+    }
   }
   
   /*********************************************************************
@@ -74,6 +87,7 @@ public class TremAzul extends Thread {
     double y = trem.getY();
     if (lado.equals("Direita")) {
       for (int c = 0; c < posicao; c++) {
+        verificar();
         x++;
         if(!controller.tremSubindo())
           y++;
@@ -96,6 +110,7 @@ public class TremAzul extends Thread {
       }
     } else if (lado.equals("Esquerda")){
         for (int c = 0; c < posicao; c++) {
+        verificar();
         x--;
         if(!controller.tremSubindo())
           y++;
@@ -124,6 +139,7 @@ public class TremAzul extends Thread {
     if (direcao.equals("Subir") ) {
       double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
+        verificar();
         y--;
         final double finalY = y;
         Platform.runLater(() -> {
@@ -140,6 +156,7 @@ public class TremAzul extends Thread {
     else if (direcao.equals("Descer") ){
        double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
+        verificar();
         y++;
         final double finalY = y;
         Platform.runLater(() -> {
@@ -158,16 +175,7 @@ public class TremAzul extends Thread {
   @Override
   public void run () {
     System.out.println("Executando ThreadTremAzul");
-      while (true) {
-        synchronized (this) {
-          while (pausarThread) {
-            try {
-              wait();
-            } catch (InterruptedException ex) {
-              Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          }
-        }
+      while (true) { 
         try {
           if (controller.tremSubindo() ) {
             this.andarTrem( 100,"Subir", tremAzul);
