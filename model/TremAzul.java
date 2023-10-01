@@ -16,26 +16,25 @@ import javafx.scene.image.ImageView;
 
 public class TremAzul extends Thread {
     
-  private ImageView tremAzul;
+  private final ImageView tremAzul;
+  
+  private final ImageView tremAzulLadoOposto;
+  
+  private ImageView tremMovendo;
   
   private final Slider aceleradorAzul;
   
-  private boolean movimentar = true;
-  
   private PlataformaController controller;
+  
+  private double velocidadeTrem;
   
   // construtor da classe
   public TremAzul (PlataformaController controller) {
     this.controller = controller;
-    aceleradorAzul = controller.getAceleradorAzul();
+    this.aceleradorAzul = controller.getAceleradorAzul();
+    this.tremAzul = controller.getTremAzul();
+    this.tremAzulLadoOposto = controller.getTremAzulLadoOposto();
   }
-    
-  /*********************************************************************
-  * Metodo: ajustarVelocidade
-  * Funcao: mudar a velocidade do trem de acordo com o valor do slider
-  * Parametro: double velocidade
-  * Retorno: void
-  ******************************************************************* */ 
   
   /*********************************************************************
   * Metodo: setDirecao
@@ -47,13 +46,12 @@ public class TremAzul extends Thread {
     resetar();
     
     if (direcao.equals("Cima")) {
-      tremAzul = controller.getTremAzul();
+      tremAzul.setVisible(true);
     }
     else if (direcao.equals("Baixo")) {
-      tremAzul = controller.getTremAzulLadoOposto();
+      tremAzulLadoOposto.setVisible(true);
     }
 
-    tremAzul.setVisible(true);
   }
   
   /*********************************************************************
@@ -63,14 +61,15 @@ public class TremAzul extends Thread {
   * Retorno: void
   ******************************************************************* */
   public void resetar() {
-    if (tremAzul != null)
-      tremAzul.setVisible(false);
+    tremAzul.setVisible(false);
+    tremAzulLadoOposto.setVisible(false);
     aceleradorAzul.setValue(0);
   }
-  public void girarTrem (int posicao,String lado) throws InterruptedException {
+  
+  public void girarTrem (int posicao,String lado, ImageView trem) throws InterruptedException {
     
-    double x = tremAzul.getX();
-    double y = tremAzul.getY();
+    double x = trem.getX();
+    double y = trem.getY();
     if (lado.equals("Direita")) {
       for (int c = 0; c < posicao; c++) {
         x++;
@@ -83,12 +82,12 @@ public class TremAzul extends Thread {
 
         // Usar Platform.runLater() para atualizar a interface do usuário
         Platform.runLater(() -> {
-          tremAzul.setX(finalX);
-          tremAzul.setY(finalY);
+          trem.setX(finalX);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) getVelocidadeTrem());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -105,12 +104,12 @@ public class TremAzul extends Thread {
 
         // Usar Platform.runLater() para atualizar a interface do usuário
         Platform.runLater(() -> {
-          tremAzul.setX(finalX);
-          tremAzul.setY(finalY);
+          trem.setX(finalX);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) getVelocidadeTrem());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -118,85 +117,96 @@ public class TremAzul extends Thread {
     }
   }
   
-  public void andarTrem (int posicaoY, String direcao) throws InterruptedException {
+  public void andarTrem (int posicaoY, String direcao, ImageView trem) throws InterruptedException {
     
     if (direcao.equals("Subir")) {
-      double y = tremAzul.getY();
+      double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         y--;
         final double finalY = y;
         Platform.runLater(() -> {
-          tremAzul.setY(finalY);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) getVelocidadeTrem());
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
       }
     }
     else if (direcao.equals("Descer")){
-       double y = tremAzul.getY();
+       double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         y++;
         final double finalY = y;
         Platform.runLater(() -> {
-          tremAzul.setY(finalY);
+          trem.setY(finalY);
         });
 
         try {
-            Thread.sleep(10);
+            Thread.sleep((long) getVelocidadeTrem());
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
       }     
     }
-
   }
   
+  
+   
   @Override
   public void run () {
     System.out.println("Executando ThreadTremAzul");
       while (true) {
         try {
           if (controller.tremSubindo()) {
-            this.andarTrem( 100,"Subir");
+            this.andarTrem( 100,"Subir", tremAzul);
             // inicio regiao critica embaixo
-            this.girarTrem( 33,"Esquerda");
-            this.andarTrem( 55,"Subir");
-            this.girarTrem(33,"Direita");
+            this.girarTrem( 33,"Esquerda", tremAzul);
+            this.andarTrem( 55,"Subir",tremAzul);
+            this.girarTrem(33,"Direita",tremAzul);
             // fim regiao critica embaixo
-            this.andarTrem( 100,"Subir");
+            this.andarTrem( 100,"Subir",tremAzul);
             //inicio regiao critica cima
-            this.girarTrem( 33, "Esquerda");
-            this.andarTrem(45,"Subir");
-            this.girarTrem(33,"Direita");
+            this.girarTrem( 33, "Esquerda",tremAzul);
+            this.andarTrem(45,"Subir",tremAzul);
+            this.girarTrem(33,"Direita",tremAzul);
             // fim regiao critica cima
-            this.andarTrem(100,"Subir");
+            this.andarTrem(100,"Subir",tremAzul);
             tremAzul.setX(0.0);
             tremAzul.setY(0.0);
           } else {
-            this.andarTrem( 100,"Descer");
+            this.andarTrem( 100,"Descer",tremAzulLadoOposto);
             // inicio regiao critica embaixo
-            this.girarTrem( 33,"Esquerda");
-            this.andarTrem( 55,"Descer");
-            this.girarTrem(33,"Direita");
+            this.girarTrem( 33,"Esquerda",tremAzulLadoOposto);
+            this.andarTrem( 55,"Descer",tremAzulLadoOposto);
+            this.girarTrem(33,"Direita",tremAzulLadoOposto);
             // fim regiao critica embaixo
-            this.andarTrem( 100,"Descer");
+            this.andarTrem( 100,"Descer",tremAzulLadoOposto);
             //inicio regiao critica cima
-            this.girarTrem( 33, "Esquerda");
-            this.andarTrem(45,"Descer");
-            this.girarTrem(33,"Direita");
+            this.girarTrem( 33, "Esquerda",tremAzulLadoOposto);
+            this.andarTrem(45,"Descer",tremAzulLadoOposto);
+            this.girarTrem(33,"Direita",tremAzulLadoOposto);
             // fim regiao critica cima
-            this.andarTrem(100,"Descer");
-            tremAzul.setX(0.0);
-            tremAzul.setY(0.0);
+            this.andarTrem(100,"Descer",tremAzulLadoOposto);
+            tremAzulLadoOposto.setX(0.0);
+            tremAzulLadoOposto.setY(0.0);
           }
         } catch (InterruptedException ex) {
           Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
   } // fim do metodo run
+
+  public double getVelocidadeTrem() {
+    return velocidadeTrem;
+  }
+
+  public void setVelocidadeTrem(double velocidadeTrem) {
+    this.velocidadeTrem = velocidadeTrem;
+  }
   
 } // fim da classe

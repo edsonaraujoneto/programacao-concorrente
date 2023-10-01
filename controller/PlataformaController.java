@@ -71,6 +71,8 @@ public class PlataformaController implements Initializable {
   private TremAzul tremAzulThread;
   
   private TremVerde tremVerdeThread;
+  
+  private ToggleGroup grupoRadiosButtonsDirecao;
 
   
   @Override
@@ -98,18 +100,18 @@ public class PlataformaController implements Initializable {
     tremAzulThread = new TremAzul(this);
     tremVerdeThread = new TremVerde(this);
     
-    ToggleGroup grupoRadiosButtonsDirecao = new ToggleGroup();
-    radioBaixoBaixo.setToggleGroup(grupoRadiosButtonsDirecao);
-    radioBaixoCima.setToggleGroup(grupoRadiosButtonsDirecao);
-    radioCimaCima.setToggleGroup(grupoRadiosButtonsDirecao);
-    radioCimaBaixo.setToggleGroup(grupoRadiosButtonsDirecao);
+    grupoRadiosButtonsDirecao = new ToggleGroup();
+    radioBaixoBaixo.setToggleGroup(getGrupoRadiosButtonsDirecao());
+    radioBaixoCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
+    radioCimaCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
+    radioCimaBaixo.setToggleGroup(getGrupoRadiosButtonsDirecao());
     
     ToggleGroup grupoRadiosButtonsTratamento = new ToggleGroup();
     radioVariavelDeTravamento.setToggleGroup(grupoRadiosButtonsTratamento);
     radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
     radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
     
-    grupoRadiosButtonsDirecao.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
+    getGrupoRadiosButtonsDirecao().selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
       if (newValue != null) {
         ajustarPosicao();
       }
@@ -137,6 +139,8 @@ public class PlataformaController implements Initializable {
   
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThread (double velocidade) {
+    tremAzulThread.setVelocidadeTrem( (velocidade*4));
+    System.out.println( velocidade*4);
     if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
       if (!tremAzulThread.isAlive()) {
         System.out.println("Iniciou threadAzul");
@@ -279,6 +283,10 @@ public class PlataformaController implements Initializable {
 
   public RadioButton getRadioCimaCima() {
     return radioCimaCima;
+  }
+
+  public ToggleGroup getGrupoRadiosButtonsDirecao() {
+    return grupoRadiosButtonsDirecao;
   }
 
   
