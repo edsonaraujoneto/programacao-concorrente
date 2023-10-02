@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
@@ -33,6 +34,9 @@ public class PlataformaController implements Initializable {
 
   @FXML
   private RadioButton radioBaixoBaixo;
+  
+  @FXML
+  private Group grupoMenu;
 
   @FXML
   private RadioButton radioBaixoCima;
@@ -111,19 +115,8 @@ public class PlataformaController implements Initializable {
     radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
     radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
     
-    getGrupoRadiosButtonsDirecao().selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
-      if (newValue != null) {
-        ajustarPosicao();
-      }
-    });
-    
     grupoRadiosButtonsTratamento.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
-
     });
-
-    radioVariavelDeTravamento.setSelected(true);
-    getRadioCimaCima().setSelected(true);
-    ajustarPosicao();
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
@@ -131,15 +124,20 @@ public class PlataformaController implements Initializable {
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
       iniciarThreadTremVerde(newValue.doubleValue());
-
     });
 
   } // fim da classe initialize
   
+  @FXML
+  void clicouIniciar(ActionEvent event) {
+    ajustarPosicao();
+    if (selecionouPosicao() && selecionouTratamentoDeColisao())
+      grupoMenu.setVisible(false);
+  }
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThreadTremAzul (double velocidade) {
     
-    if (aceleradorAzul.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+    if (aceleradorAzul.getValue() != 0 ) {
       if (!tremAzulThread.isAlive()) {
         tremAzulThread.start();
       } 
@@ -149,7 +147,7 @@ public class PlataformaController implements Initializable {
         tremAzulThread.notify();
       }
     } 
-    else if(aceleradorAzul.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+    else if(aceleradorAzul.getValue() == 0 ) {
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(true);
       }
@@ -222,10 +220,7 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
-    getRadioCimaCima().setSelected(false);
-    getRadioCimaBaixo().setSelected(false);
-    getRadioBaixoBaixo().setSelected(false);
-    getRadioBaixoCima().setSelected(false);
+    grupoMenu.setVisible(true);
     
     if (!tremAzulThread.isAlive()) { 
       tremAzulThread.resetar();
