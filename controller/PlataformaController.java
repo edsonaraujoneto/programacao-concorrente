@@ -121,10 +121,12 @@ public class PlataformaController implements Initializable {
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
+      start = true;
     });
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
       iniciarThreadTremVerde(newValue.doubleValue());
+      start = true;
     });
 
   } // fim da classe initialize
@@ -134,7 +136,6 @@ public class PlataformaController implements Initializable {
     if (selecionouPosicao() && selecionouTratamentoDeColisao()) {
       grupoMenu.setVisible(false);
       ajustarPosicao();
-      start = true;
     }
   }
   
@@ -149,22 +150,41 @@ public class PlataformaController implements Initializable {
     grupoMenu.setVisible(true);
     start = false;
     if (tremAzulThread.isAlive()) { 
+      tremAzulThread.setVelocidadeTrem(1); // dar a volta mais rapido e voltar do inicio
+      
+      if(tremAzulThread.getPausarThread()) {
+        synchronized (tremAzulThread) {
+          System.out.println("Ta pausado");
+          tremAzulThread.setPausarThread(false);
+          tremAzulThread.notify();
+          System.out.println(tremAzulThread.getVelocidadeTrem());
+        }     
+        
+      }
+      tremAzulThread.interrupt(); // problema possivelmente aqui?
       System.out.println("Interrompeu ThreadAzul");
-      tremAzulThread.setVelocidadeTrem(1);
-      tremAzulThread.interrupt();
       mediaPlayer.stop();
     }
+    
     if (tremVerdeThread.isAlive()) { 
-      System.out.println("Interrompeu ThreadVerde");
       tremVerdeThread.setVelocidadeTrem(1);
+      System.out.println("Interrompeu ThreadVerde");
+      if(tremVerdeThread.getPausarThread()) {
+        synchronized (tremVerdeThread) {
+          tremVerdeThread.setPausarThread(false);
+          tremVerdeThread.notify();
+        }       
+      }
       tremVerdeThread.interrupt();
       mediaPlayer.stop();
     }
+
   } // Fim do metodo clicouReiniciar
   
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThreadTremAzul (double velocidade) {
     System.out.println(20/velocidade);
+    
     if (aceleradorAzul.getValue() != 0 ) {
       if (!tremAzulThread.isAlive()) {
         System.out.println("Iniciou tremAzulThread");
