@@ -121,12 +121,10 @@ public class PlataformaController implements Initializable {
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
-      System.out.println("Mudou a velocidade do Azul");
     });
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
       iniciarThreadTremVerde(newValue.doubleValue());
-      start = true;
     });
 
   } // fim da classe initialize
@@ -148,24 +146,20 @@ public class PlataformaController implements Initializable {
   @FXML
   public void clicouReiniciar(ActionEvent event) {
     iniciarThreadTremAzul(0);
+    iniciarThreadTremVerde(0);
     grupoMenu.setVisible(true);
     start = false;
     if (tremAzulThread.isAlive()) {
-      //tremAzulThread.setVelocidadeTrem(1);
       tremAzulThread.interrupt(); 
       tremAzulThread = new TremAzul(this);
-      //tremAzulThread.interrupt();
-      System.out.println("Interrompeu ThreadAzul");
       mediaPlayer.stop();
     }
     
     if (tremVerdeThread.isAlive()) { 
       tremVerdeThread.interrupt();
       tremVerdeThread = new TremVerde(this);
-      tremVerdeThread.interrupt();
       mediaPlayer.stop();
     }
-
   } // Fim do metodo clicouReiniciar
   
   // iniciar a thread apenas se a velocidade foi alterada.
@@ -199,6 +193,7 @@ public class PlataformaController implements Initializable {
     if (aceleradorVerde.getValue() != 0 ) {
       if (!tremVerdeThread.isAlive()) {
         tremVerdeThread.start();
+        start = true;
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade);
       if (tremVerdeThread.getPausarThread()) {

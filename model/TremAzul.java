@@ -76,7 +76,6 @@ public class TremAzul extends Thread {
   * Retorno: void
   ******************************************************************* */
   public void resetar() {
-    System.out.println("Resetou");
     tremAzul.setVisible(false);
     tremAzulLadoOposto.setVisible(false);
     Platform.runLater(() -> tremAzul.setX(0.0));
@@ -87,7 +86,6 @@ public class TremAzul extends Thread {
   }
   
   public void girarTrem (int posicao,String lado, ImageView trem) throws InterruptedException {
-    System.out.println("TremGirando");
     double x = trem.getX();
     double y = trem.getY();
     if (lado.equals("Direita")) {
