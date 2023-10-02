@@ -121,7 +121,7 @@ public class PlataformaController implements Initializable {
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
-      start = true;
+      System.out.println("Mudou a velocidade do Azul");
     });
     
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
@@ -147,34 +147,21 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
+    iniciarThreadTremAzul(0);
     grupoMenu.setVisible(true);
     start = false;
-    if (tremAzulThread.isAlive()) { 
-      tremAzulThread.setVelocidadeTrem(1); // dar a volta mais rapido e voltar do inicio
-      
-      if(tremAzulThread.getPausarThread()) {
-        synchronized (tremAzulThread) {
-          System.out.println("Ta pausado");
-          tremAzulThread.setPausarThread(false);
-          tremAzulThread.notify();
-          System.out.println(tremAzulThread.getVelocidadeTrem());
-        }     
-        
-      }
-      tremAzulThread.interrupt(); // problema possivelmente aqui?
+    if (tremAzulThread.isAlive()) {
+      //tremAzulThread.setVelocidadeTrem(1);
+      tremAzulThread.interrupt(); 
+      tremAzulThread = new TremAzul(this);
+      //tremAzulThread.interrupt();
       System.out.println("Interrompeu ThreadAzul");
       mediaPlayer.stop();
     }
     
     if (tremVerdeThread.isAlive()) { 
-      tremVerdeThread.setVelocidadeTrem(1);
-      System.out.println("Interrompeu ThreadVerde");
-      if(tremVerdeThread.getPausarThread()) {
-        synchronized (tremVerdeThread) {
-          tremVerdeThread.setPausarThread(false);
-          tremVerdeThread.notify();
-        }       
-      }
+      tremVerdeThread.interrupt();
+      tremVerdeThread = new TremVerde(this);
       tremVerdeThread.interrupt();
       mediaPlayer.stop();
     }
@@ -187,7 +174,8 @@ public class PlataformaController implements Initializable {
     
     if (aceleradorAzul.getValue() != 0 ) {
       if (!tremAzulThread.isAlive()) {
-        System.out.println("Iniciou tremAzulThread");
+        System.out.println("Startou tremAzulThread");
+        start = true;
         tremAzulThread.start();
       } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade);
@@ -198,9 +186,9 @@ public class PlataformaController implements Initializable {
         }
       }
     } // fim if acelerador diferente de 0
-    else if(aceleradorAzul.getValue() == 0) {
+    else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) {
       synchronized (tremAzulThread) {
-        System.out.println("Entrou aqui");
+        System.out.println("Velocidade igual a zero");
         tremAzulThread.setPausarThread(true);
       }
     }
@@ -242,12 +230,6 @@ public class PlataformaController implements Initializable {
   * Retorno: void
   ******************************************************************* */
   public void ajustarPosicao() {
-    if (tremAzulThread.isAlive()) {
-      tremAzulThread.interrupt();
-    }
-    if (tremVerdeThread.isAlive()) {
-      tremVerdeThread.interrupt();
-    }
     if (getRadioCimaCima().isSelected()) {
       tremAzulThread.setDirecao("Cima");
       tremVerdeThread.setDirecao("Cima");
