@@ -77,7 +77,8 @@ public class PlataformaController implements Initializable {
   private TremVerde tremVerdeThread;
   
   private ToggleGroup grupoRadiosButtonsDirecao;
-
+  
+  private boolean start = false;
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -130,25 +131,56 @@ public class PlataformaController implements Initializable {
   
   @FXML
   void clicouIniciar(ActionEvent event) {
-    ajustarPosicao();
-    if (selecionouPosicao() && selecionouTratamentoDeColisao())
+    if (selecionouPosicao() && selecionouTratamentoDeColisao()) {
       grupoMenu.setVisible(false);
+      ajustarPosicao();
+      start = true;
+    }
   }
+  
+    /*********************************************************************
+  * Metodo: clicouReiniciar
+  * Funcao: Reiniciar toda a simulacao do inicio, escondendo os trens, interrompendo a thread, zerando o velocimetro (os sliders) e desativando o audio
+  * Parametros: Evento de clique
+  * Retorno: void
+  ******************************************************************* */
+  @FXML
+  public void clicouReiniciar(ActionEvent event) {
+    grupoMenu.setVisible(true);
+    start = false;
+    if (tremAzulThread.isAlive()) { 
+      System.out.println("Interrompeu ThreadAzul");
+      tremAzulThread.setVelocidadeTrem(1);
+      tremAzulThread.interrupt();
+      mediaPlayer.stop();
+    }
+    if (tremVerdeThread.isAlive()) { 
+      System.out.println("Interrompeu ThreadVerde");
+      tremVerdeThread.setVelocidadeTrem(1);
+      tremVerdeThread.interrupt();
+      mediaPlayer.stop();
+    }
+  } // Fim do metodo clicouReiniciar
+  
   // iniciar a thread apenas se a velocidade foi alterada.
   public void iniciarThreadTremAzul (double velocidade) {
-    
+    System.out.println(20/velocidade);
     if (aceleradorAzul.getValue() != 0 ) {
       if (!tremAzulThread.isAlive()) {
+        System.out.println("Iniciou tremAzulThread");
         tremAzulThread.start();
       } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade);
-      synchronized (tremAzulThread) {
-        tremAzulThread.setPausarThread(false);
-        tremAzulThread.notify();
+      if (tremAzulThread.getPausarThread()) {
+        synchronized (tremAzulThread) {
+          tremAzulThread.setPausarThread(false);
+          tremAzulThread.notify();
+        }
       }
-    } 
-    else if(aceleradorAzul.getValue() == 0 ) {
+    } // fim if acelerador diferente de 0
+    else if(aceleradorAzul.getValue() == 0) {
       synchronized (tremAzulThread) {
+        System.out.println("Entrou aqui");
         tremAzulThread.setPausarThread(true);
       }
     }
@@ -156,17 +188,19 @@ public class PlataformaController implements Initializable {
   
     public void iniciarThreadTremVerde (double velocidade) {
     
-    if (aceleradorVerde.getValue() != 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+    if (aceleradorVerde.getValue() != 0 ) {
       if (!tremVerdeThread.isAlive()) {
         tremVerdeThread.start();
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade);
-      synchronized (tremVerdeThread) {
-        tremVerdeThread.setPausarThread(false);
-        tremVerdeThread.notify();
+      if (tremVerdeThread.getPausarThread()) {
+        synchronized (tremVerdeThread) {
+          tremVerdeThread.setPausarThread(false);
+          tremVerdeThread.notify();
+        }
       }
     } 
-    else if(aceleradorVerde.getValue() == 0 && selecionouPosicao() && selecionouTratamentoDeColisao()) {
+    else if(aceleradorVerde.getValue() == 0 ) {
       synchronized (tremVerdeThread) {
         tremVerdeThread.setPausarThread(true);
       }
@@ -211,28 +245,6 @@ public class PlataformaController implements Initializable {
       tremVerdeThread.setDirecao("Baixo");
     }
   } // fim ajustarPosicao
-
-  /*********************************************************************
-  * Metodo: clicouReiniciar
-  * Funcao: Reiniciar toda a simulacao do inicio, escondendo os trens, interrompendo a thread, zerando o velocimetro (os sliders) e desativando o audio
-  * Parametros: Evento de clique
-  * Retorno: void
-  ******************************************************************* */
-  @FXML
-  public void clicouReiniciar(ActionEvent event) {
-    grupoMenu.setVisible(true);
-    
-    if (!tremAzulThread.isAlive()) { 
-      tremAzulThread.resetar();
-      tremAzulThread.interrupt();
-      mediaPlayer.stop();
-    }
-    if (!tremVerdeThread.isAlive()) { 
-      tremVerdeThread.resetar();
-      tremVerdeThread.interrupt();
-      mediaPlayer.stop();
-    }
-  } // Fim do metodo clicouReiniciar
 
   /*********************************************************************
   * Metodo: clicouMute
@@ -283,8 +295,13 @@ public class PlataformaController implements Initializable {
     return aceleradorVerde;
   }
   
-  public boolean tremSubindo () {
+  public boolean tremAzulSubindo () {
     if (radioCimaCima.isSelected() || radioBaixoCima.isSelected())
+      return true;
+    return false;
+  }
+  public boolean tremVerdeSubindo () {
+    if (radioCimaCima.isSelected() || radioCimaBaixo.isSelected())
       return true;
     return false;
   }
@@ -309,6 +326,10 @@ public class PlataformaController implements Initializable {
     return grupoRadiosButtonsDirecao;
   }
 
+  public boolean isStart() {
+    return start;
+  }
+  
   
   
 } // Fim do PlataformaController

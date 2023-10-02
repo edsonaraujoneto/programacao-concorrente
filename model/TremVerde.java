@@ -40,7 +40,7 @@ public class TremVerde extends Thread {
   
   public void verificar() {
     synchronized (this) {
-      while (pausarThread) {
+      while (getPausarThread()) {
         try {
           wait();
         } catch (InterruptedException ex) {
@@ -92,7 +92,7 @@ public class TremVerde extends Thread {
       for (int c = 0; c < posicao; c++) {
         verificar();
         x++;
-        if(!controller.tremSubindo())
+        if(!controller.tremVerdeSubindo())
           y++;
         else
           y--;
@@ -115,7 +115,7 @@ public class TremVerde extends Thread {
         for (int c = 0; c < posicao; c++) {
         verificar();
         x--;
-        if(!controller.tremSubindo())
+        if(!controller.tremVerdeSubindo())
           y++;
         else
           y--;
@@ -139,7 +139,7 @@ public class TremVerde extends Thread {
   
   public void andarTrem (int posicaoY, String direcao, ImageView trem) throws InterruptedException {
     
-    if (direcao.equals("Subir") ) {
+    if (direcao.equals("Subir")) {
       double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         verificar();
@@ -156,7 +156,7 @@ public class TremVerde extends Thread {
         }
       }
     }
-    else if (direcao.equals("Descer") ){
+    else if (direcao.equals("Descer")  ){
        double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         verificar(); // verificar se não foi pausado o trem
@@ -180,7 +180,12 @@ public class TremVerde extends Thread {
     System.out.println("Executando ThreadTremVerde");
       while (true) { 
         try {
-          if (controller.tremSubindo() ) {
+          if (controller.tremVerdeSubindo()  && controller.isStart() ) {
+            tremVerde.setX(0.0);
+            Platform.runLater(() -> tremVerde.setX(0.0));
+            tremVerde.setY(0.0);
+            Platform.runLater(() -> tremVerde.setY(0.0));
+            
             this.andarTrem( 90,"Subir", tremVerde);
             // inicio regiao critica embaixo
             this.girarTrem( 30,"Direita", tremVerde);
@@ -195,11 +200,13 @@ public class TremVerde extends Thread {
             // fim regiao critica cima
             this.andarTrem(100,"Subir",tremVerde);
             
-            tremVerde.setX(0.0);
-            Platform.runLater(() -> tremVerde.setX(0.0));
-            tremVerde.setY(0.0);
-            Platform.runLater(() -> tremVerde.setY(0.0));
-          } else  {
+          } else if(controller.isStart()) {
+            System.out.println("Entrou aqui");
+            tremVerdeLadoOposto.setX(0.0);
+            Platform.runLater(() -> tremVerdeLadoOposto.setX(0.0));
+            tremVerdeLadoOposto.setY(0.0);
+            Platform.runLater(() -> tremVerdeLadoOposto.setY(0.0));
+            
             this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
             // inicio regiao critica embaixo
             this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
@@ -214,13 +221,9 @@ public class TremVerde extends Thread {
             // fim regiao critica cima
             this.andarTrem(120,"Descer",tremVerdeLadoOposto);
             
-            tremVerdeLadoOposto.setX(0.0);
-            Platform.runLater(() -> tremVerdeLadoOposto.setX(0.0));
-            tremVerdeLadoOposto.setY(0.0);
-            Platform.runLater(() -> tremVerdeLadoOposto.setY(0.0));
           }
         } catch (InterruptedException ex) {
-          Logger.getLogger(TremVerde.class.getName()).log(Level.SEVERE, null, ex);
+          break;
         }
       }
   } // fim do metodo run
@@ -235,6 +238,10 @@ public class TremVerde extends Thread {
 
   public void setPausarThread(boolean pausarThread) {
     this.pausarThread = pausarThread;
+  }
+
+  public boolean getPausarThread() {
+    return pausarThread;
   }
   
   

@@ -41,7 +41,7 @@ public class TremAzul extends Thread {
   
   public void verificar() {
     synchronized (this) {
-      while (pausarThread) {
+      while (getPausarThread()) {
         try {
           wait();
         } catch (InterruptedException ex) {
@@ -93,7 +93,7 @@ public class TremAzul extends Thread {
       for (int c = 0; c < posicao; c++) {
         verificar();
         x++;
-        if(!controller.tremSubindo())
+        if(!controller.tremAzulSubindo())
           y++;
         else
           y--;
@@ -116,7 +116,7 @@ public class TremAzul extends Thread {
         for (int c = 0; c < posicao; c++) {
         verificar();
         x--;
-        if(!controller.tremSubindo())
+        if(!controller.tremAzulSubindo())
           y++;
         else
           y--;
@@ -181,7 +181,12 @@ public class TremAzul extends Thread {
     System.out.println("Executando ThreadTremAzul");
       while (true) { 
         try {
-          if (controller.tremSubindo() ) {
+          if (controller.tremAzulSubindo() && controller.isStart() ) {
+            tremAzul.setX(0.0);
+            Platform.runLater(() -> tremAzul.setX(0.0));
+            tremAzul.setY(0.0);
+            Platform.runLater(() -> tremAzul.setY(0.0));
+            
             this.andarTrem( 90,"Subir", tremAzul);
             // inicio regiao critica embaixo
             this.girarTrem( 33,"Esquerda", tremAzul);
@@ -196,11 +201,12 @@ public class TremAzul extends Thread {
             // fim regiao critica cima
             this.andarTrem(100,"Subir",tremAzul);
             
-            tremAzul.setX(0.0);
-            Platform.runLater(() -> tremAzul.setX(0.0));
-            tremAzul.setY(0.0);
-            Platform.runLater(() -> tremAzul.setY(0.0));
-          } else  {
+          } else if(controller.isStart()) {
+            tremAzulLadoOposto.setX(0.0);
+            Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
+            tremAzulLadoOposto.setY(0.0);
+            Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
+            
             this.andarTrem( 80,"Descer",tremAzulLadoOposto);
             // inicio regiao critica embaixo
             this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
@@ -215,13 +221,9 @@ public class TremAzul extends Thread {
             // fim regiao critica cima
             this.andarTrem(120,"Descer",tremAzulLadoOposto);
             
-            tremAzulLadoOposto.setX(0.0);
-            Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
-            tremAzulLadoOposto.setY(0.0);
-            Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
           }
         } catch (InterruptedException ex) {
-          Logger.getLogger(TremAzul.class.getName()).log(Level.SEVERE, null, ex);
+          break;
         }
       }
   } // fim do metodo run
@@ -237,6 +239,11 @@ public class TremAzul extends Thread {
   public void setPausarThread(boolean pausarThread) {
     this.pausarThread = pausarThread;
   }
+
+  public boolean getPausarThread() {
+    return pausarThread;
+  }
+  
   
   
 } // fim da classe
