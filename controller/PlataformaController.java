@@ -79,10 +79,29 @@ public class PlataformaController implements Initializable {
   private ToggleGroup grupoRadiosButtonsDirecao;
   
   private boolean start = false;
+  /********************************************************/
   
   private static int variavelDeTravamentoDeBaixo = 0;
   
   private static int variavelDeTravamentoDeCima = 0;
+  
+  /*********************************************************/
+  
+  private static int vezDeCima = 0;   // 1 trem Azul - 0 tremVerde
+  
+  private static int vezDeBaixo = 0;   // 1 trem Azul - 0 tremVerde
+  
+  /************************************************************************************************/
+  // interesse do recurso compartilhado de cima
+  private static boolean interesseDeCima [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
+  
+  // interesse do recurso compartilhado de baixo
+  private static boolean interesseDeBaixo [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
+  
+  private static int vezDeCimaSP;
+  
+  private static int vezDeBaixoSP;
+  /**************************************************************************************************/
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -156,8 +175,8 @@ public class PlataformaController implements Initializable {
   @FXML
   public void clicouReiniciar(ActionEvent event) {
     // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
-    variavelDeTravamentoDeBaixo = 0; 
-    variavelDeTravamentoDeCima = 0;
+    setVariavelDeTravamentoDeBaixo(0); 
+    setVariavelDeTravamentoDeCima(0);
     
     // Pausa ambas threads quando o botão de reiniciar é clicado
     iniciarThreadTremAzul(0);
@@ -310,6 +329,52 @@ public class PlataformaController implements Initializable {
     return false;
   }
 
+  /*********************************************************************
+  * Metodo: tremAzulSubindo
+  * Funcao: Verifica se o radiobutton no qual o tremAzul sobe esta selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
+  public boolean tremAzulSubindo () {
+    if (radioCimaCima.isSelected() || radioBaixoCima.isSelected())
+      return true;
+    return false;
+  }
+  
+  /*********************************************************************
+  * Metodo: tremVerdeSubindo
+  * Funcao: Verifica se o radiobutton no qual o tremVerde sobe esta selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
+  public boolean tremVerdeSubindo () {
+    if (radioCimaCima.isSelected() || radioCimaBaixo.isSelected())
+      return true;
+    return false;
+  }
+  
+  public boolean isStart() {
+    return start;
+  }
+  
+  public boolean selecionouVariavelDeTravamento () {
+    if (radioVariavelDeTravamento.isSelected()) 
+      return true;
+    return false;
+  }
+  
+  public boolean selecionouAlternanciaExplicita() {
+    if (radioEstritaAlternancia.isSelected()) 
+      return true;
+    return false;
+  }
+  
+  public boolean selecionouSolucaoDePeterson() {
+    if (radioSolucaoPeterson.isSelected())
+      return true;
+    return false;
+  }
+  
   public ImageView getTremAzul() {
     return tremAzul;
   }
@@ -334,30 +399,6 @@ public class PlataformaController implements Initializable {
     return aceleradorVerde;
   }
   
-  /*********************************************************************
-  * Metodo: tremAzulSubindo
-  * Funcao: Verifica se o radiobutton no qual o tremAzul sobe esta selecionado
-  * Parametros: void
-  * Retorno: boolean
-  ******************************************************************* */
-  public boolean tremAzulSubindo () {
-    if (radioCimaCima.isSelected() || radioBaixoCima.isSelected())
-      return true;
-    return false;
-  }
-  
-  /*********************************************************************
-  * Metodo: tremVerdeSubindo
-  * Funcao: Verifica se o radiobutton no qual o tremVerde sobe esta selecionado
-  * Parametros: void
-  * Retorno: boolean
-  ******************************************************************* */
-  public boolean tremVerdeSubindo () {
-    if (radioCimaCima.isSelected() || radioCimaBaixo.isSelected())
-      return true;
-    return false;
-  }
-
   public RadioButton getRadioBaixoBaixo() {
     return radioBaixoBaixo;
   }
@@ -378,38 +419,58 @@ public class PlataformaController implements Initializable {
     return grupoRadiosButtonsDirecao;
   }
 
-  public boolean isStart() {
-    return start;
-  }
-  
-  public boolean selecionouVariavelDeTratamento () {
-    if (radioVariavelDeTravamento.isSelected()) 
-      return true;
-    return false;
-  }
-  
-  public void entrouNaRegiaoCriticaDeBaixo () {
-    variavelDeTravamentoDeBaixo = 1;
-  }
-  public void saiuDaRegiaoCriticaDeBaixo () {
-    variavelDeTravamentoDeBaixo = 0;
-  }
-
   public static int getVariavelDeTravamentoDeBaixo() {
     return variavelDeTravamentoDeBaixo;
   }
 
-  public void entrouNaRegiaoCriticaDeCima () {
-    variavelDeTravamentoDeCima = 1;
-  }
-  
-  public void saiuDaRegiaoCriticaDeCima () {
-    variavelDeTravamentoDeCima = 0;
-  }
   public static int getVariavelDeTravamentoDeCima() {
     return variavelDeTravamentoDeCima;
   }
+
+  public static void setVariavelDeTravamentoDeBaixo(int aVariavelDeTravamentoDeBaixo) {
+    variavelDeTravamentoDeBaixo = aVariavelDeTravamentoDeBaixo;
+  }
+
+  public static void setVariavelDeTravamentoDeCima(int aVariavelDeTravamentoDeCima) {
+    variavelDeTravamentoDeCima = aVariavelDeTravamentoDeCima;
+  }
   
+  public static int getVezDeBaixo() {
+    return vezDeBaixo;
+  }
   
+  public static int getVezDeCima() {
+    return vezDeBaixo;
+  }
   
+  public static void setVezDeCima(int aVezDeCima) {
+    vezDeCima = aVezDeCima;
+  }
+
+  public static void setVezDeBaixo(int aVezDeBaixo) {
+    vezDeBaixo = aVezDeBaixo;
+  }
+  
+  public void entrouNaRegiaoCriticaDeBaixo (int id) {
+    int outro = 1-id;
+    interesseDeBaixo [id] = true;
+    vezDeBaixoSP = id;
+    while (vezDeBaixoSP != id && interesseDeBaixo[outro] == true) {System.out.println();}
+  }
+  
+  public void saiuDaRegiaoCriticaDeBaixo (int id) {
+    interesseDeBaixo [id] = false;
+  }
+  
+  public void entrouNaRegiaoCriticaDeCima (int id ) {
+    int outro = 1-id;
+    interesseDeCima [id] = true;
+    vezDeCimaSP = id;
+    while (vezDeCimaSP != id && interesseDeCima[outro] == true) {System.out.println();}
+  }
+  
+  public void saiuDaRegiaoCriticaDeCima (int id) {
+    interesseDeCima [id] = false;
+  }
+
 } // Fim do PlataformaController

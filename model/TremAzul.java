@@ -3,7 +3,7 @@ package model;
 * Autor............: Edson Araujo de Souza Neto
 * Matricula........: 202210169
 * Inicio...........: 17/08/2023
-* Ultima alteracao.: 25/09/2023
+* Ultima alteracao.: 07/10/2023
 * Nome.............: Thread trem azul
 * Funcao...........: Iniciar a thread de acordo com a direcao escolhida e variar a velocidade ao mudar o slider
 *************************************************************** */
@@ -20,11 +20,9 @@ public class TremAzul extends Thread {
   
   private final ImageView tremAzulLadoOposto;
   
-  private ImageView tremMovendo;
-  
   private final Slider aceleradorAzul;
   
-  private PlataformaController controller;
+  private final PlataformaController controller;
   
   private double velocidadeTrem;
   
@@ -66,7 +64,6 @@ public class TremAzul extends Thread {
     else if (direcao.equals("Baixo")) {
       tremAzulLadoOposto.setVisible(true);
     }
-
   }
   
   /*********************************************************************
@@ -88,6 +85,7 @@ public class TremAzul extends Thread {
   public void girarTrem (int posicao,String lado, ImageView trem) throws InterruptedException {
     double x = trem.getX();
     double y = trem.getY();
+    
     if (lado.equals("Direita")) {
       for (int c = 0; c < posicao; c++) {
         verificar();
@@ -106,9 +104,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            break;
+          break;
         }
       }
     } else if (lado.equals("Esquerda")){
@@ -129,9 +127,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            break;
+          break;
         }
       }    
     }
@@ -149,9 +147,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            break;
+          break;
         }
       }
     }
@@ -166,9 +164,9 @@ public class TremAzul extends Thread {
         });
 
         try {
-            Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem);
         } catch (InterruptedException e) {
-            break;
+          break;
         }
       }     
     }
@@ -176,71 +174,158 @@ public class TremAzul extends Thread {
   
   @Override
   public void run () {
-      while (true) { 
-        try {
-          if (controller.tremAzulSubindo() && controller.isStart() ) {
-          
+    while (true) { 
+      try {
+        if (controller.tremAzulSubindo() && controller.isStart() ) { 
+
+          if (controller.selecionouVariavelDeTravamento()) {
+            this.andarTrem( 90,"Subir", tremAzul);
+            while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
+            controller.setVariavelDeTravamentoDeBaixo(1);
             // inicio regiao critica embaixo
-            if (controller.selecionouVariavelDeTratamento()) {
-              this.andarTrem( 90,"Subir", tremAzul);
-              while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
-              controller.entrouNaRegiaoCriticaDeBaixo();
-              this.girarTrem( 33,"Esquerda", tremAzul);
-              this.andarTrem( 55,"Subir",tremAzul);
-              this.girarTrem(30,"Direita",tremAzul);
-              controller.saiuDaRegiaoCriticaDeBaixo();
-              // fim regiao critica embaixo
-              this.andarTrem( 95,"Subir",tremAzul);
-              //inicio regiao critica cima
-              while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
-              controller.entrouNaRegiaoCriticaDeCima();
-              this.girarTrem( 30, "Esquerda",tremAzul);
-              this.andarTrem(60,"Subir",tremAzul);
-              this.girarTrem(33,"Direita",tremAzul);
-              controller.saiuDaRegiaoCriticaDeCima();
-              // fim regiao critica cima
-              this.andarTrem(100,"Subir",tremAzul);
-            }
+            this.girarTrem( 33,"Esquerda", tremAzul);
+            this.andarTrem( 55,"Subir",tremAzul);
+            this.girarTrem(30,"Direita",tremAzul);
+            // fim regiao critica embaixo
+            controller.setVariavelDeTravamentoDeBaixo(0);
+            this.andarTrem( 95,"Subir",tremAzul);
+            while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
+            controller.setVariavelDeTravamentoDeCima(1);
+            //inicio regiao critica cima
+            this.girarTrem( 30, "Esquerda",tremAzul);
+            this.andarTrem(60,"Subir",tremAzul);
+            this.girarTrem(33,"Direita",tremAzul);
+            // fim regiao critica cima
+            controller.setVariavelDeTravamentoDeCima(0);
+            this.andarTrem(100,"Subir",tremAzul);
+          } // fim selecionou variavel de tratamento
+          
+          else if(controller.selecionouAlternanciaExplicita()) {
             
-            tremAzul.setX(0.0);
-            Platform.runLater(() -> tremAzul.setX(0.0));
-            tremAzul.setY(0.0);
-            Platform.runLater(() -> tremAzul.setY(0.0));
+            this.andarTrem( 90,"Subir", tremAzul);
+            while (controller.getVezDeBaixo() == 0) {System.out.println();}
+            // inicio regiao critica embaixo
+            this.girarTrem( 33,"Esquerda", tremAzul);
+            this.andarTrem( 55,"Subir",tremAzul);
+            this.girarTrem(30,"Direita",tremAzul);
+            // fim regiao critica embaixo
+            controller.setVezDeBaixo(0);
+            this.andarTrem( 95,"Subir",tremAzul);
             
-          } else if(controller.isStart()) {
+            while (controller.getVezDeCima() == 0) {System.out.println();}
+            //inicio regiao critica cima
+            this.girarTrem( 30, "Esquerda",tremAzul);
+            this.andarTrem(60,"Subir",tremAzul);
+            this.girarTrem(33,"Direita",tremAzul);
+            // fim regiao critica cima
+            controller.setVezDeCima(0);
+            this.andarTrem(100,"Subir",tremAzul);
             
-            if (controller.selecionouVariavelDeTratamento()) {
-              this.andarTrem( 80,"Descer",tremAzulLadoOposto);
-              // inicio regiao critica cima
-              while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
-              controller.entrouNaRegiaoCriticaDeCima();
-              this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
-              this.andarTrem( 55,"Descer",tremAzulLadoOposto);
-              this.girarTrem(30,"Direita",tremAzulLadoOposto);
-              controller.saiuDaRegiaoCriticaDeCima();
-              // fim regiao critica cima
-              this.andarTrem( 85,"Descer",tremAzulLadoOposto);
-              //inicio regiao critica baixo
-              while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
-              controller.entrouNaRegiaoCriticaDeBaixo();
-              this.girarTrem( 30, "Esquerda",tremAzulLadoOposto);
-              this.andarTrem(75,"Descer",tremAzulLadoOposto);
-              this.girarTrem(30,"Direita",tremAzulLadoOposto);
-              controller.saiuDaRegiaoCriticaDeBaixo();
-              // fim regiao critica baixo
-              this.andarTrem(120,"Descer",tremAzulLadoOposto);
-            }
+          } // fim alternancia explicita selecionado
+          
+          else if (controller.selecionouSolucaoDePeterson()) {
+            this.andarTrem( 90,"Subir", tremAzul);
+            controller.entrouNaRegiaoCriticaDeBaixo(1);
+            // inicio regiao critica embaixo
+            this.girarTrem( 33,"Esquerda", tremAzul);
+            this.andarTrem( 55,"Subir",tremAzul);
+            this.girarTrem(30,"Direita",tremAzul);
+            // fim regiao critica embaixo
+            controller.saiuDaRegiaoCriticaDeBaixo(1);
             
-            tremAzulLadoOposto.setX(0.0);
-            Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
-            tremAzulLadoOposto.setY(0.0);
-            Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
+            this.andarTrem( 95,"Subir",tremAzul);
             
-          }
-        } catch (InterruptedException ex) {
-          break;
-        }
+            controller.entrouNaRegiaoCriticaDeCima(1);
+            //inicio regiao critica cima
+            this.girarTrem( 30, "Esquerda",tremAzul);
+            this.andarTrem(60,"Subir",tremAzul);
+            this.girarTrem(33,"Direita",tremAzul);
+            // fim regiao critica cima
+            controller.saiuDaRegiaoCriticaDeCima(1);
+            this.andarTrem(100,"Subir",tremAzul);
+            
+          } // fim selecionou SolucaoDePeterson
+
+
+          tremAzul.setX(0.0);
+          Platform.runLater(() -> tremAzul.setX(0.0));
+          tremAzul.setY(0.0);
+          Platform.runLater(() -> tremAzul.setY(0.0));
+
+        } else if(controller.isStart()) { // o trem esta descendo
+
+          if (controller.selecionouVariavelDeTravamento()) {
+            this.andarTrem( 80,"Descer",tremAzulLadoOposto);
+            while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
+            controller.setVariavelDeTravamentoDeCima(1);
+            // inicio regiao critica cima
+            this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
+            this.andarTrem( 55,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica cima
+            controller.setVariavelDeTravamentoDeCima(0);
+            this.andarTrem( 85,"Descer",tremAzulLadoOposto);
+            while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
+            controller.setVariavelDeTravamentoDeBaixo(1);
+            //inicio regiao critica baixo
+            this.girarTrem( 30, "Esquerda",tremAzulLadoOposto);
+            this.andarTrem(75,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica baixo
+            controller.setVariavelDeTravamentoDeBaixo(0);
+            this.andarTrem(120,"Descer",tremAzulLadoOposto);
+          } // fim selecionou VariavelDeTravamento
+          
+          else if(controller.selecionouAlternanciaExplicita()) {
+            this.andarTrem( 80,"Descer",tremAzulLadoOposto);
+            while (controller.getVezDeCima() == 0) {System.out.println();}
+            // inicio regiao critica cima
+            this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
+            this.andarTrem( 55,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica cima
+            controller.setVezDeCima(0);
+            this.andarTrem( 85,"Descer",tremAzulLadoOposto);
+            while (controller.getVezDeBaixo() == 0) {System.out.println();}
+            //inicio regiao critica baixo
+            this.girarTrem( 30, "Esquerda",tremAzulLadoOposto);
+            this.andarTrem(75,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica baixo
+            controller.setVezDeBaixo(0);
+            this.andarTrem(120,"Descer",tremAzulLadoOposto);
+          } // fim selecinou alternancia explicita
+          
+          else if (controller.selecionouSolucaoDePeterson()) {
+            this.andarTrem( 80,"Descer",tremAzulLadoOposto);
+            controller.entrouNaRegiaoCriticaDeCima(1);
+            // inicio regiao critica cima
+            this.girarTrem( 30,"Esquerda",tremAzulLadoOposto);
+            this.andarTrem( 55,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica cima
+            controller.saiuDaRegiaoCriticaDeCima(1);
+            this.andarTrem( 85,"Descer",tremAzulLadoOposto);
+            controller.entrouNaRegiaoCriticaDeBaixo(1);
+            //inicio regiao critica baixo
+            this.girarTrem( 30, "Esquerda",tremAzulLadoOposto);
+            this.andarTrem(75,"Descer",tremAzulLadoOposto);
+            this.girarTrem(30,"Direita",tremAzulLadoOposto);
+            // fim regiao critica baixo
+            controller.saiuDaRegiaoCriticaDeBaixo(1);
+            this.andarTrem(120,"Descer",tremAzulLadoOposto);
+          } // fim selecionou solucao de Peterson
+
+          tremAzulLadoOposto.setX(0.0);
+          Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
+          tremAzulLadoOposto.setY(0.0);
+          Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
+
+        } // fim do else trem esta descendo
+      } catch (InterruptedException ex) {
+        break;
       }
+    } // fim while
   } // fim do metodo run
 
   public double getVelocidadeTrem() {
@@ -258,7 +343,5 @@ public class TremAzul extends Thread {
   public boolean getPausarThread() {
     return pausarThread;
   }
-  
-  
   
 } // fim da classe
