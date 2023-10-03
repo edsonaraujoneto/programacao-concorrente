@@ -4,7 +4,7 @@ package controller;
 * Autor............: Edson Araujo de Souza Neto
 * Matricula........: 202210169
 * Inicio...........: 17/08/2023
-* Ultima alteracao.: 25/09/2023
+* Ultima alteracao.: 07/10/2023
 * Nome.............: Controle da Plataforma
 * Funcao...........: Controlar todos os eventos que ocorrem no arquivo FXML.
 *************************************************************** */
@@ -81,6 +81,7 @@ public class PlataformaController implements Initializable {
   private boolean start = false;
   
   private static int variavelDeTravamentoDeBaixo = 0;
+  
   private static int variavelDeTravamentoDeCima = 0;
   
   @Override
@@ -104,23 +105,22 @@ public class PlataformaController implements Initializable {
     Media media = new Media(audioFile);
     mediaPlayer = new MediaPlayer(media);
     
-    // criando as threads e passando como parametro as imagens dos dois lados e os sliders.
+    // criando as threads e passando como parametro o controller
     tremAzulThread = new TremAzul(this);
     tremVerdeThread = new TremVerde(this);
     
+    // criando um grupo onde sera possivel selecionar apenas um radio button de direcao
     grupoRadiosButtonsDirecao = new ToggleGroup();
     radioBaixoBaixo.setToggleGroup(getGrupoRadiosButtonsDirecao());
     radioBaixoCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
     radioCimaCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
     radioCimaBaixo.setToggleGroup(getGrupoRadiosButtonsDirecao());
     
+    // criando um grupo onde sera possivel selecionar apenas um radio button de tratamento de colisão
     ToggleGroup grupoRadiosButtonsTratamento = new ToggleGroup();
     radioVariavelDeTravamento.setToggleGroup(grupoRadiosButtonsTratamento);
     radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
     radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
-    
-    grupoRadiosButtonsTratamento.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
-    });
 
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
@@ -132,28 +132,40 @@ public class PlataformaController implements Initializable {
 
   } // fim da classe initialize
   
+  
+  /*********************************************************************
+  * Metodo: clicouIniciar
+  * Funcao: Desabilita a visibilidade da tela de menu e ajusta a posicao de acordo com o radioButton de direcao escolhido
+  * Parametros: Evento de clique
+  * Retorno: void
+  ******************************************************************* */
   @FXML
-  void clicouIniciar(ActionEvent event) {
+  public void clicouIniciar(ActionEvent event) {
     if (selecionouPosicao() && selecionouTratamentoDeColisao()) {
       grupoMenu.setVisible(false);
       ajustarPosicao();
     }
   }
   
-    /*********************************************************************
+  /*********************************************************************
   * Metodo: clicouReiniciar
-  * Funcao: Reiniciar toda a simulacao do inicio, escondendo os trens, interrompendo a thread, zerando o velocimetro (os sliders) e desativando o audio
+  * Funcao: Habilita a visibilidade do menu e interrompe as threads caso estejam vivas para instanciar uma nova
   * Parametros: Evento de clique
   * Retorno: void
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
-    variavelDeTravamentoDeBaixo = 0;
+    // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
+    variavelDeTravamentoDeBaixo = 0; 
     variavelDeTravamentoDeCima = 0;
+    
+    // Pausa ambas threads quando o botão de reiniciar é clicado
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
+    
     grupoMenu.setVisible(true);
     start = false;
+    
     if (tremAzulThread.isAlive()) {
       tremAzulThread.interrupt(); 
       tremAzulThread = new TremAzul(this);
@@ -167,18 +179,23 @@ public class PlataformaController implements Initializable {
     }
   } // Fim do metodo clicouReiniciar
   
-  // iniciar a thread apenas se a velocidade foi alterada.
+  /*********************************************************************
+  * Metodo: iniciarThreadTremAzul
+  * Funcao: Inicia a thread somente se a velocidade foi alterada
+  * Parametros: double velocidade
+  * Retorno: void
+  ******************************************************************* */
   public void iniciarThreadTremAzul (double velocidade) {
-    System.out.println(20/velocidade);
-    
+
     if (aceleradorAzul.getValue() != 0 ) {
-      if (!tremAzulThread.isAlive()) {
-        System.out.println("Startou tremAzulThread");
+      if (!tremAzulThread.isAlive()) { // caso a thread não esteja viva, é iniciada.
         start = true;
         tremAzulThread.start();
       } 
-      tremAzulThread.setVelocidadeTrem( 20/velocidade);
-      if (tremAzulThread.getPausarThread()) {
+      
+      tremAzulThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
+      
+      if (tremAzulThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremAzulThread) {
           tremAzulThread.setPausarThread(false);
           tremAzulThread.notify();
@@ -187,35 +204,49 @@ public class PlataformaController implements Initializable {
     } // fim if acelerador diferente de 0
     else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) {
       synchronized (tremAzulThread) {
-        System.out.println("Velocidade igual a zero");
-        tremAzulThread.setPausarThread(true);
+        tremAzulThread.setPausarThread(true); // pausa a thread
       }
-    }
-  } // fim iniciarThread
+    } // fim if acelerador igual a 0
+  } // fim iniciarThreadTremAzul
   
-    public void iniciarThreadTremVerde (double velocidade) {
+  
+  /*********************************************************************
+  * Metodo: iniciarThreadTremVerde
+  * Funcao: Inicia a thread somente se a velocidade foi alterada
+  * Parametros: double velocidade
+  * Retorno: void
+  ******************************************************************* */
+  public void iniciarThreadTremVerde (double velocidade) {
     
     if (aceleradorVerde.getValue() != 0 ) {
-      if (!tremVerdeThread.isAlive()) {
+      
+      if (!tremVerdeThread.isAlive()) { // caso a thread não esteja viva, é iniciada.
         tremVerdeThread.start();
         start = true;
       } 
-      tremVerdeThread.setVelocidadeTrem( 20/velocidade);
-      if (tremVerdeThread.getPausarThread()) {
+      tremVerdeThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
+      
+      if (tremVerdeThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremVerdeThread) {
           tremVerdeThread.setPausarThread(false);
           tremVerdeThread.notify();
         }
       }
-    } 
+    } // fim if acelerador diferente de 0 
     else if(aceleradorVerde.getValue() == 0 ) {
       synchronized (tremVerdeThread) {
-        tremVerdeThread.setPausarThread(true);
+        tremVerdeThread.setPausarThread(true); // pausa a thread
       }
-    }
-  } // fim iniciarThread
+    } // fim if acelerador igual a 0
+  } // fim iniciarThreadTremVerde
   
   
+  /*********************************************************************
+  * Metodo: selecionouPosicao
+  * Funcao: Verifica se o radioButton de posicao foi selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   //Verificar se o usuario selecionou a posicao do trem
   public boolean selecionouPosicao() {
     if (getRadioCimaCima().isSelected() || getRadioBaixoBaixo().isSelected() || getRadioBaixoCima().isSelected() || getRadioCimaBaixo().isSelected()) 
@@ -225,7 +256,7 @@ public class PlataformaController implements Initializable {
 
   /*********************************************************************
   * Metodo: ajustarPosicao
-  * Funcao: configurar o percurso do trem de acordo com o radioButton selecionado
+  * Funcao: configurar a direcao do trem de acordo com o radioButton selecionado
   * Parametros: void
   * Retorno: void
   ******************************************************************* */
@@ -266,7 +297,13 @@ public class PlataformaController implements Initializable {
     }
   } // fim do metodo clicouMute
   
-  // verificar se selecionou variavel de tratamento
+  
+  /*********************************************************************
+  * Metodo: selecionouTratamentoDeColisao
+  * Funcao: Verifica se o radioButton de tratamentoDeColisao foi selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean selecionouTratamentoDeColisao() {
     if (radioVariavelDeTravamento.isSelected() || radioSolucaoPeterson.isSelected() || radioEstritaAlternancia.isSelected())
       return true;
@@ -297,11 +334,24 @@ public class PlataformaController implements Initializable {
     return aceleradorVerde;
   }
   
+  /*********************************************************************
+  * Metodo: tremAzulSubindo
+  * Funcao: Verifica se o radiobutton no qual o tremAzul sobe esta selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean tremAzulSubindo () {
     if (radioCimaCima.isSelected() || radioBaixoCima.isSelected())
       return true;
     return false;
   }
+  
+  /*********************************************************************
+  * Metodo: tremVerdeSubindo
+  * Funcao: Verifica se o radiobutton no qual o tremVerde sobe esta selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean tremVerdeSubindo () {
     if (radioCimaCima.isSelected() || radioCimaBaixo.isSelected())
       return true;
