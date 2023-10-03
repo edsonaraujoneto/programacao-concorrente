@@ -93,14 +93,14 @@ public class PlataformaController implements Initializable {
   
   /************************************************************************************************/
   // interesse do recurso compartilhado de cima
-  private static boolean interesseDeCima [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
+  private boolean interesseDeCima [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
   
   // interesse do recurso compartilhado de baixo
-  private static boolean interesseDeBaixo [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
+  private boolean interesseDeBaixo [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
   
-  private static int vezDeCimaSP;
+  private int vezDeCimaSP;
   
-  private static int vezDeBaixoSP;
+  private int vezDeBaixoSP;
   /**************************************************************************************************/
   
   @Override
@@ -454,8 +454,8 @@ public class PlataformaController implements Initializable {
   public void entrouNaRegiaoCriticaDeBaixo (int id) {
     int outro = 1-id;
     interesseDeBaixo [id] = true;
-    vezDeBaixoSP = id;
-    while (vezDeBaixoSP != id && interesseDeBaixo[outro] == true) {System.out.println();}
+    vezDeBaixoSP = outro;
+    while (vezDeBaixoSP == outro && interesseDeBaixo[outro] == true);
   }
   
   public void saiuDaRegiaoCriticaDeBaixo (int id) {
@@ -464,9 +464,9 @@ public class PlataformaController implements Initializable {
   
   public void entrouNaRegiaoCriticaDeCima (int id ) {
     int outro = 1-id;
-    interesseDeCima [id] = true;
-    vezDeCimaSP = id;
-    while (vezDeCimaSP != id && interesseDeCima[outro] == true) {System.out.println();}
+    interesseDeCima [id] = true; // ok
+    vezDeCimaSP = outro;
+    while (vezDeCimaSP == outro && interesseDeCima[outro] == true);
   }
   
   public void saiuDaRegiaoCriticaDeCima (int id) {
