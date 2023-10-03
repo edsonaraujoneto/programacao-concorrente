@@ -177,7 +177,6 @@ public class TremVerde extends Thread {
   
   @Override
   public void run () {
-    System.out.println("Executando ThreadTremVerde");
       while (true) { 
         try {
           if (controller.tremVerdeSubindo()  && controller.isStart() ) {
@@ -188,39 +187,52 @@ public class TremVerde extends Thread {
             
             this.andarTrem( 90,"Subir", tremVerde);
             // inicio regiao critica embaixo
-            this.girarTrem( 30,"Direita", tremVerde);
-            this.andarTrem( 55,"Subir",tremVerde);
-            this.girarTrem(30,"Esquerda",tremVerde);
-            // fim regiao critica embaixo
-            this.andarTrem( 95,"Subir",tremVerde);
-            //inicio regiao critica cima
-            this.girarTrem( 30, "Direita",tremVerde);
-            this.andarTrem(60,"Subir",tremVerde);
-            this.girarTrem(30,"Esquerda",tremVerde);
-            // fim regiao critica cima
-            this.andarTrem(100,"Subir",tremVerde);
+            if (controller.selecionouVariavelDeTratamento()) {
+              while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
+              controller.entrouNaRegiaoCriticaDeBaixo();
+              this.girarTrem( 30,"Direita", tremVerde);
+              this.andarTrem( 55,"Subir",tremVerde);
+              this.girarTrem(30,"Esquerda",tremVerde);
+              controller.saiuDaRegiaoCriticaDeBaixo();
+              // fim regiao critica embaixo
+              this.andarTrem( 95,"Subir",tremVerde);
+              //inicio regiao critica cima
+              while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
+              controller.entrouNaRegiaoCriticaDeCima();             
+              this.girarTrem( 30, "Direita",tremVerde);
+              this.andarTrem(60,"Subir",tremVerde);
+              this.girarTrem(30,"Esquerda",tremVerde);
+              controller.saiuDaRegiaoCriticaDeCima();
+              // fim regiao critica cima
+              this.andarTrem(100,"Subir",tremVerde);
+            }
             
           } else if(controller.isStart()) {
-            System.out.println("Entrou aqui");
+            if (controller.selecionouVariavelDeTratamento()) {
+              this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
+              // inicio regiao critica cima
+              while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println(); }
+              controller.entrouNaRegiaoCriticaDeCima();
+              this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
+              this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
+              this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+              controller.saiuDaRegiaoCriticaDeCima();
+              // fim regiao critica cima
+              this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
+              //inicio regiao critica baixo
+              while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println(); }
+              controller.entrouNaRegiaoCriticaDeBaixo();
+              this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
+              this.andarTrem(75,"Descer",tremVerdeLadoOposto);
+              this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+              controller.saiuDaRegiaoCriticaDeBaixo();
+              // fim regiao critica baixo
+              this.andarTrem(120,"Descer",tremVerdeLadoOposto);
+            }
             tremVerdeLadoOposto.setX(0.0);
             Platform.runLater(() -> tremVerdeLadoOposto.setX(0.0));
             tremVerdeLadoOposto.setY(0.0);
             Platform.runLater(() -> tremVerdeLadoOposto.setY(0.0));
-            
-            this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
-            // inicio regiao critica embaixo
-            this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
-            this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
-            this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
-            // fim regiao critica embaixo
-            this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
-            //inicio regiao critica cima
-            this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
-            this.andarTrem(75,"Descer",tremVerdeLadoOposto);
-            this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
-            // fim regiao critica cima
-            this.andarTrem(120,"Descer",tremVerdeLadoOposto);
-            
           }
         } catch (InterruptedException ex) {
           break;

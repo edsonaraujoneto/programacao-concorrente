@@ -80,6 +80,9 @@ public class PlataformaController implements Initializable {
   
   private boolean start = false;
   
+  private static int variavelDeTravamentoDeBaixo = 0;
+  private static int variavelDeTravamentoDeCima = 0;
+  
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // Configuracoes basicas dos sliders
@@ -145,6 +148,8 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
+    variavelDeTravamentoDeBaixo = 0;
+    variavelDeTravamentoDeCima = 0;
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
     grupoMenu.setVisible(true);
@@ -325,6 +330,34 @@ public class PlataformaController implements Initializable {
 
   public boolean isStart() {
     return start;
+  }
+  
+  public boolean selecionouVariavelDeTratamento () {
+    if (radioVariavelDeTravamento.isSelected()) 
+      return true;
+    return false;
+  }
+  
+  public void entrouNaRegiaoCriticaDeBaixo () {
+    variavelDeTravamentoDeBaixo = 1;
+  }
+  public void saiuDaRegiaoCriticaDeBaixo () {
+    variavelDeTravamentoDeBaixo = 0;
+  }
+
+  public static int getVariavelDeTravamentoDeBaixo() {
+    return variavelDeTravamentoDeBaixo;
+  }
+
+  public void entrouNaRegiaoCriticaDeCima () {
+    variavelDeTravamentoDeCima = 1;
+  }
+  
+  public void saiuDaRegiaoCriticaDeCima () {
+    variavelDeTravamentoDeCima = 0;
+  }
+  public static int getVariavelDeTravamentoDeCima() {
+    return variavelDeTravamentoDeCima;
   }
   
   
