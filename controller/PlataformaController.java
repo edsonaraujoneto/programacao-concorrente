@@ -28,90 +28,52 @@ public class PlataformaController implements Initializable {
 
   @FXML
   private Slider aceleradorAzul;
-
-  @FXML
   private Slider aceleradorVerde;
-
-  @FXML
   private RadioButton radioBaixoBaixo;
-  
-  @FXML
   private Group grupoMenu;
-
-  @FXML
   private RadioButton radioBaixoCima;
-
-  @FXML
   private RadioButton radioCimaBaixo;
-
-  @FXML
   private RadioButton radioCimaCima;
-
-  @FXML
   private RadioButton radioEstritaAlternancia;
-
-  @FXML
   private RadioButton radioSolucaoPeterson;
-
-  @FXML
   private RadioButton radioVariavelDeTravamento;
-
-  @FXML
   private ImageView tremAzul;
-
-  @FXML
   private ImageView tremVerde;
-
-  @FXML
   private ImageView tremVerdeLadoOposto;
-
-  @FXML
   private ImageView tremAzulLadoOposto;
 
   private MediaPlayer mediaPlayer;
-
   private int entrada = 0; // variavel de controle para som do trem
-  
   private TremAzul tremAzulThread;
-  
   private TremVerde tremVerdeThread;
-  
   private ToggleGroup grupoRadiosButtonsDirecao;
-  
   private boolean start = false;
+  
   /********************************************************/
-  
+  // Variavel de Travamento
   private static int variavelDeTravamentoDeBaixo = 0;
-  
   private static int variavelDeTravamentoDeCima = 0;
-  
   /*********************************************************/
-  
+  // Alternancia Explicita
   private static int vezDeCima = 0;   // 1 trem Azul - 0 tremVerde
-  
   private static int vezDeBaixo = 0;   // 1 trem Azul - 0 tremVerde
-  
   /************************************************************************************************/
-  // interesse do recurso compartilhado de cima
+  // Solucao de Peterson
   private boolean interesseDeCima [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
-  
-  // interesse do recurso compartilhado de baixo
   private boolean interesseDeBaixo [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
-  
   private static int vezDeCimaSP;
-  
   private static int vezDeBaixoSP;
   /**************************************************************************************************/
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // Configuracoes basicas dos sliders
-    getAceleradorAzul().setMin(0);
-    getAceleradorAzul().setMax(5);
-    getAceleradorAzul().setValue(0);
-    getAceleradorAzul().setShowTickMarks(true);
-    getAceleradorAzul().setMajorTickUnit(1);
-    getAceleradorAzul().setShowTickLabels(true);
+    // Configuracoes basicas dos sliders de velocidade
+    getAceleradorAzul().setMin(0); // Minimo de velocidade
+    getAceleradorAzul().setMax(5); // Maximo de velocidade
+    getAceleradorAzul().setValue(0); // Velocidade de inicio
+    getAceleradorAzul().setShowTickMarks(true); // Marcar as velocidades
+    getAceleradorAzul().setMajorTickUnit(1); // Intervalo entre as velocidades
+    getAceleradorAzul().setShowTickLabels(true); // Pontuar as velocidades
     getAceleradorVerde().setMin(0);
     getAceleradorVerde().setMax(5);
     getAceleradorVerde().setValue(0);
@@ -124,7 +86,7 @@ public class PlataformaController implements Initializable {
     Media media = new Media(audioFile);
     mediaPlayer = new MediaPlayer(media);
     
-    // criando as threads e passando como parametro o controller
+    // criando as threads e passando como parametro o mesmo controller 
     tremAzulThread = new TremAzul(this);
     tremVerdeThread = new TremVerde(this);
     
@@ -141,10 +103,10 @@ public class PlataformaController implements Initializable {
     radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
     radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
 
+    // Listener para mudar a velocidade quando o valor for alterado do slider.
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
       iniciarThreadTremAzul(newValue.doubleValue());
     });
-    
     aceleradorVerde.valueProperty().addListener((observable,oldValue,newValue) -> {
       iniciarThreadTremVerde(newValue.doubleValue());
     });
@@ -160,9 +122,9 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouIniciar(ActionEvent event) {
-    if (selecionouPosicao() && selecionouTratamentoDeColisao()) {
-      grupoMenu.setVisible(false);
-      ajustarPosicao();
+    if (selecionouPosicao() && selecionouTratamentoDeColisao()) { // Verifica se os itens minimos foram atendidos
+      grupoMenu.setVisible(false); // Esconde o menu (todo o grupo)
+      ajustarPosicao(); // Ajusta a posicao dos trens
     }
   }
   
@@ -182,12 +144,12 @@ public class PlataformaController implements Initializable {
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
     
-    grupoMenu.setVisible(true);
-    start = false;
+    grupoMenu.setVisible(true); // Torna o menu visivel
+    start = false; 
     
-    if (tremAzulThread.isAlive()) {
+    if (tremAzulThread.isAlive()) { // Se a thread está viva
       tremAzulThread.interrupt(); 
-      tremAzulThread = new TremAzul(this);
+      tremAzulThread = new TremAzul(this); // Instancia uma nova após interromper a anterior
       mediaPlayer.stop();
     }
     
@@ -200,7 +162,7 @@ public class PlataformaController implements Initializable {
   
   /*********************************************************************
   * Metodo: iniciarThreadTremAzul
-  * Funcao: Inicia a thread somente se a velocidade foi alterada
+  * Funcao: Inicia a thread se ela não está viva somente se a velocidade foi alterada, pausa se a velocidade é zero, e aumenta a velocidade caso necessario.
   * Parametros: double velocidade
   * Retorno: void
   ******************************************************************* */
@@ -211,9 +173,7 @@ public class PlataformaController implements Initializable {
         start = true;
         tremAzulThread.start();
       } 
-      
-      tremAzulThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
-      
+      tremAzulThread.setVelocidadeTrem( 20/velocidade); // Maximo de 4 e mínimo de 20 aproximadamente
       if (tremAzulThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremAzulThread) {
           tremAzulThread.setPausarThread(false);
@@ -221,7 +181,8 @@ public class PlataformaController implements Initializable {
         }
       }
     } // fim if acelerador diferente de 0
-    else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) {
+    
+    else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) { // verifica se a velocidade é zero e o trem esta em movimento
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(true); // pausa a thread
       }
@@ -231,20 +192,18 @@ public class PlataformaController implements Initializable {
   
   /*********************************************************************
   * Metodo: iniciarThreadTremVerde
-  * Funcao: Inicia a thread somente se a velocidade foi alterada
+  * Funcao: Inicia a thread se ela não está viva somente se a velocidade foi alterada, pausa se a velocidade é zero, e aumenta a velocidade caso necessario.
   * Parametros: double velocidade
   * Retorno: void
   ******************************************************************* */
   public void iniciarThreadTremVerde (double velocidade) {
     
     if (aceleradorVerde.getValue() != 0 ) {
-      
       if (!tremVerdeThread.isAlive()) { // caso a thread não esteja viva, é iniciada.
         tremVerdeThread.start();
         start = true;
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
-      
       if (tremVerdeThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremVerdeThread) {
           tremVerdeThread.setPausarThread(false);
@@ -357,18 +316,36 @@ public class PlataformaController implements Initializable {
     return start;
   }
   
+  /*********************************************************************
+  * Metodo: selecionouVariavelDeTravamento
+  * Funcao: Verifica se o o button de Variavel de Travamento foi selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean selecionouVariavelDeTravamento () {
     if (radioVariavelDeTravamento.isSelected()) 
       return true;
     return false;
   }
   
+  /*********************************************************************
+  * Metodo: selecionouAlternanciaExplicita
+  * Funcao: Verifica se o o button de Alternancia Explicita foi selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean selecionouAlternanciaExplicita() {
     if (radioEstritaAlternancia.isSelected()) 
       return true;
     return false;
   }
   
+  /*********************************************************************
+  * Metodo: selecionouSolucaoDePeterson
+  * Funcao: Verifica se o o button de solucao de peterson foi selecionado
+  * Parametros: void
+  * Retorno: boolean
+  ******************************************************************* */
   public boolean selecionouSolucaoDePeterson() {
     if (radioSolucaoPeterson.isSelected())
       return true;
@@ -451,28 +428,48 @@ public class PlataformaController implements Initializable {
     vezDeBaixo = aVezDeBaixo;
   }
   
+  /*********************************************************************
+  * Metodo: entrouNaRegiaoCriticaDeBaixo
+  * Funcao: setar o interesse como verdadeiro para a thread que chamou o metodo e verificar se pode ou não acessar essa região critica.
+  * Parametros: int id
+  * Retorno: void
+  ******************************************************************* */
   public void entrouNaRegiaoCriticaDeBaixo (int id) {
-    System.out.println("Entrou na regiao Critica de Baixo");
-    System.out.println("ID:" +id);
     int outro = 1-id;
-    System.out.println("OUTRO:" + outro);
-    System.out.println("Interesse do Outro: " + interesseDeBaixo[outro]);
     interesseDeBaixo [id] = true;
     vezDeBaixoSP = id;
     while (vezDeBaixoSP == id && interesseDeBaixo[outro] == true) {System.out.println();}
   }
   
+  /*********************************************************************
+  * Metodo: saiuDaRegiaoCriticaDeBaixo
+  * Funcao: setar o interesse como falso para thread que chamou a metodo, significa que saiu dessa regiao critica
+  * Parametros: int id
+  * Retorno: void
+  ******************************************************************* */
   public void saiuDaRegiaoCriticaDeBaixo (int id) {
     interesseDeBaixo [id] = false;
   }
   
+  /*********************************************************************
+  * Metodo: entrouNaRegiaoCriticaDeCima
+  * Funcao: setar o interesse como verdadeiro para a thread que chamou o metodo e verificar se pode ou não acessar essa região critica.
+  * Parametros: int id
+  * Retorno: void
+  ******************************************************************* */
   public void entrouNaRegiaoCriticaDeCima (int id ) {
     int outro = 1-id;
-    interesseDeCima [id] = true; // ok
+    interesseDeCima [id] = true; 
     vezDeCimaSP = id;
     while (vezDeCimaSP == id && interesseDeCima[outro] == true){System.out.println();}
   }
   
+  /*********************************************************************
+  * Metodo: saiuDaRegiaoCriticaDeBCima
+  * Funcao: setar o interesse como falso para thread que chamou a metodo, significa que saiu dessa regiao critica
+  * Parametros: int id
+  * Retorno: void
+  ******************************************************************* */
   public void saiuDaRegiaoCriticaDeCima (int id) {
     interesseDeCima [id] = false;
   }

@@ -2,7 +2,7 @@
 * Autor............: Edson Araujo de Souza Neto
 * Matricula........: 202210169
 * Inicio...........: 17/08/2023
-* Ultima alteracao.: 25/09/2023
+* Ultima alteracao.: 07/10/2023
 * Nome.............: Simulacao de funcionamento de trens
 * Funcao...........: Simular atraves de uma interface grafica o percurso de dois trens
 *************************************************************** */
@@ -26,15 +26,16 @@ public class Principal extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     primaryStage.setTitle("TrainTraffic");// Nome da janela
-    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Plataforma.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Plataforma.fxml")); // Carregar arquivo FXML
     scene = new Scene(root);
     
     Image icon = new Image("/images/icon.png");  // Carregando o ícone da janela
 
     primaryStage.setResizable(false); // evitar Maximizar
     primaryStage.setScene(scene);
-    primaryStage.getIcons().add(icon);
-    primaryStage.setOnCloseRequest(t -> {
+
+    primaryStage.getIcons().add(icon); // adicionar icon a janela
+    primaryStage.setOnCloseRequest(t -> { // fechar os processos caso a janela seja fechada
       Platform.exit();
       System.exit(0);
     });

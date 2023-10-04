@@ -34,7 +34,6 @@ public class TremAzul extends Thread {
     this.aceleradorAzul = controller.getAceleradorAzul();
     this.tremAzul = controller.getTremAzul();
     this.tremAzulLadoOposto = controller.getTremAzulLadoOposto();
-
   }
   
   public void verificar() {
