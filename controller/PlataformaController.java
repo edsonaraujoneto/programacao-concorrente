@@ -28,18 +28,31 @@ public class PlataformaController implements Initializable {
 
   @FXML
   private Slider aceleradorAzul;
+  @FXML
   private Slider aceleradorVerde;
+  @FXML
   private RadioButton radioBaixoBaixo;
+  @FXML
   private Group grupoMenu;
+  @FXML
   private RadioButton radioBaixoCima;
+  @FXML
   private RadioButton radioCimaBaixo;
+  @FXML
   private RadioButton radioCimaCima;
+  @FXML
   private RadioButton radioEstritaAlternancia;
+  @FXML
   private RadioButton radioSolucaoPeterson;
+  @FXML
   private RadioButton radioVariavelDeTravamento;
+  @FXML
   private ImageView tremAzul;
+  @FXML
   private ImageView tremVerde;
+  @FXML
   private ImageView tremVerdeLadoOposto;
+  @FXML
   private ImageView tremAzulLadoOposto;
 
   private MediaPlayer mediaPlayer;
