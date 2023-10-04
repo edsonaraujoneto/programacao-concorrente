@@ -5,7 +5,7 @@ package model;
 * Inicio...........: 17/08/2023
 * Ultima alteracao.: 07/10/2023
 * Nome.............: Thread trem azul
-* Funcao...........: Iniciar a thread de acordo com a direcao escolhida e variar a velocidade ao mudar o slider
+* Funcao...........: Iniciar a thread de acordo com a direcao escolhida, variar a velocidade ao mudar o slider e verificar o tratamento escolhido de colisão
 *************************************************************** */
 import controller.PlataformaController;
 import java.util.logging.Level;
@@ -17,15 +17,10 @@ import javafx.scene.image.ImageView;
 public class TremAzul extends Thread {
     
   private final ImageView tremAzul;
-  
   private final ImageView tremAzulLadoOposto;
-  
   private final Slider aceleradorAzul;
-  
   private final PlataformaController controller;
-  
   private double velocidadeTrem;
-  
   private boolean pausarThread = false;
   
   // construtor da classe
@@ -36,6 +31,12 @@ public class TremAzul extends Thread {
     this.tremAzulLadoOposto = controller.getTremAzulLadoOposto();
   }
   
+  /*********************************************************************
+  * Metodo: verificar
+  * Funcao: verifica se o trem foi pausado para pausar a thread.
+  * Parametro: void
+  * Retorno: void
+  ******************************************************************* */
   public void verificar() {
     synchronized (this) {
       while (getPausarThread()) {
