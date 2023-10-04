@@ -223,6 +223,7 @@ public class TremVerde extends Thread {
             
           } // fim alternancia explicita selecionado
           else if(controller.selecionouSolucaoDePeterson()) {
+            System.out.println("Entrou aqui na solucao de Peterson Verde");
             this.andarTrem( 90,"Subir", tremVerde);
             controller.entrouNaRegiaoCriticaDeBaixo(0);
             // inicio regiao critica embaixo
@@ -230,7 +231,7 @@ public class TremVerde extends Thread {
             this.andarTrem( 55,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
             // fim regiao critica embaixo
-            controller.entrouNaRegiaoCriticaDeBaixo(0);
+            controller.saiuDaRegiaoCriticaDeBaixo(0);
             this.andarTrem( 95,"Subir",tremVerde);
             
             controller.entrouNaRegiaoCriticaDeCima(0);

@@ -98,9 +98,9 @@ public class PlataformaController implements Initializable {
   // interesse do recurso compartilhado de baixo
   private boolean interesseDeBaixo [] = new boolean [2]; // 1 trem Azul - 0 trem Verde 
   
-  private int vezDeCimaSP;
+  private static int vezDeCimaSP;
   
-  private int vezDeBaixoSP;
+  private static int vezDeBaixoSP;
   /**************************************************************************************************/
   
   @Override
@@ -452,10 +452,14 @@ public class PlataformaController implements Initializable {
   }
   
   public void entrouNaRegiaoCriticaDeBaixo (int id) {
+    System.out.println("Entrou na regiao Critica de Baixo");
+    System.out.println("ID:" +id);
     int outro = 1-id;
+    System.out.println("OUTRO:" + outro);
+    System.out.println("Interesse do Outro: " + interesseDeBaixo[outro]);
     interesseDeBaixo [id] = true;
-    vezDeBaixoSP = outro;
-    while (vezDeBaixoSP == outro && interesseDeBaixo[outro] == true);
+    vezDeBaixoSP = id;
+    while (vezDeBaixoSP == id && interesseDeBaixo[outro] == true) {System.out.println();}
   }
   
   public void saiuDaRegiaoCriticaDeBaixo (int id) {
@@ -465,8 +469,8 @@ public class PlataformaController implements Initializable {
   public void entrouNaRegiaoCriticaDeCima (int id ) {
     int outro = 1-id;
     interesseDeCima [id] = true; // ok
-    vezDeCimaSP = outro;
-    while (vezDeCimaSP == outro && interesseDeCima[outro] == true);
+    vezDeCimaSP = id;
+    while (vezDeCimaSP == id && interesseDeCima[outro] == true){System.out.println();}
   }
   
   public void saiuDaRegiaoCriticaDeCima (int id) {

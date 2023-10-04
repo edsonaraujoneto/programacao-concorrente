@@ -224,6 +224,7 @@ public class TremAzul extends Thread {
           } // fim alternancia explicita selecionado
           
           else if (controller.selecionouSolucaoDePeterson()) {
+            System.out.println("Entrou aqui na solucao de Peterson Azul");
             this.andarTrem( 90,"Subir", tremAzul);
             controller.entrouNaRegiaoCriticaDeBaixo(1);
             // inicio regiao critica embaixo
