@@ -29,11 +29,11 @@ public class TremAzul extends Thread {
     this.aceleradorAzul = controller.getAceleradorAzul();
     this.tremAzul = controller.getTremAzul();
     this.tremAzulLadoOposto = controller.getTremAzulLadoOposto();
-  }
+  } // fim construtor da classe
   
   /*********************************************************************
   * Metodo: verificar
-  * Funcao: verifica se o trem foi pausado para pausar a thread.
+  * Funcao: verifica se a velocidade é igual a zero para pausar a thread.
   * Parametro: void
   * Retorno: void
   ******************************************************************* */
@@ -47,28 +47,27 @@ public class TremAzul extends Thread {
         }
       }
     }
-  }
+  } // fim verificar
   
   /*********************************************************************
   * Metodo: setDirecao
-  * Funcao: configurar a direcao do trem
+  * Funcao: chama a funcao resetar e configurar a direcao do trem
   * Parametro: String direcao
   * Retorno: void
   ******************************************************************* */
   public void setDirecao (String direcao) {
     resetar();
-    
     if (direcao.equals("Cima")) {
       tremAzul.setVisible(true);
     }
     else if (direcao.equals("Baixo")) {
       tremAzulLadoOposto.setVisible(true);
     }
-  }
+  } // fim setDirecao
   
   /*********************************************************************
   * Metodo: resetar
-  * Funcao: resetar o movimento do trem
+  * Funcao: esconde todos os trens, e coloca eles na posicao inicial
   * Parametros: void
   * Retorno: void
   ******************************************************************* */
@@ -80,105 +79,129 @@ public class TremAzul extends Thread {
     Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
     Platform.runLater(() -> tremAzulLadoOposto.setY(0.0));
     aceleradorAzul.setValue(0);
-  }
+  } // fim resetar
   
+  /*********************************************************************
+  * Metodo: girarTrem
+  * Funcao: movimentar a posicao x e y do trem para entrar no trilho unico
+  * Parametro: int posicao, string lado, ImageView trem
+  * Retorno: void
+  ******************************************************************* */
   public void girarTrem (int posicao,String lado, ImageView trem) throws InterruptedException {
     double x = trem.getX();
     double y = trem.getY();
     
-    if (lado.equals("Direita")) {
+    if (lado.equals("Direita")) { //ir para direita
       for (int c = 0; c < posicao; c++) {
-        verificar();
+        verificar(); // verifica se foi pausado
         x++;
         if(!controller.tremAzulSubindo())
-          y++;
+          y++; // trem esta descendo
         else
-          y--;
+          y--; // trem esta subindo
         final double finalX = x;
         final double finalY = y;
 
-        // Usar Platform.runLater() para atualizar a interface do usuário
+        //atualizar a interface do usuario
         Platform.runLater(() -> {
           trem.setX(finalX);
           trem.setY(finalY);
         });
 
         try {
-          Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem); // mudar a velocidade do trem
         } catch (InterruptedException e) {
           break;
         }
-      }
-    } else if (lado.equals("Esquerda")){
+      } // fim if ir para Direita
+      
+    } else if (lado.equals("Esquerda")){ // ir para esquerda
         for (int c = 0; c < posicao; c++) {
-        verificar();
+        verificar(); // verifica se foi pausado
         x--;
         if(!controller.tremAzulSubindo())
-          y++;
+          y++; // trem esta descendo
         else
-          y--;
+          y--; // trem esta subindo
         final double finalX = x;
         final double finalY = y;
 
-        // Usar Platform.runLater() para atualizar a interface do usuário
+        // atualizar a interface do usuario
         Platform.runLater(() -> {
           trem.setX(finalX);
           trem.setY(finalY);
         });
 
         try {
-          Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem); // mudar a velocidade do trem
         } catch (InterruptedException e) {
           break;
         }
       }    
-    }
-  }
+    } // fim if ir para Esquerda
+  } // fim girarTrem
   
+  /*********************************************************************
+  * Metodo: andarTrem
+  * Funcao: movimentar a posicao y do trem 
+  * Parametro: int posicao, string direcao, ImageView trem
+  * Retorno: void
+  ******************************************************************* */
   public void andarTrem (int posicaoY, String direcao, ImageView trem) throws InterruptedException {
     if (direcao.equals("Subir") ) {
       double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
-        verificar();
+        verificar(); // verifica se foi pausado
         y--;
         final double finalY = y;
+        
+        // atualizar a interface do usuario
         Platform.runLater(() -> {
           trem.setY(finalY);
         });
 
         try {
-          Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem); // mudar a velocidade o trem
         } catch (InterruptedException e) {
           break;
         }
       }
-    }
+    } // fim if subir
+    
     else if (direcao.equals("Descer") ){
        double y = trem.getY();
       for (int c = 0; c < posicaoY; c++) {
         verificar(); // verificar se não foi pausado o trem
         y++;
         final double finalY = y;
+        
+        // atualizar a interface do usuario
         Platform.runLater(() -> {
           trem.setY(finalY);
         });
 
         try {
-          Thread.sleep((long) velocidadeTrem);
+          Thread.sleep((long) velocidadeTrem); // mudar a velocidade do trem
         } catch (InterruptedException e) {
           break;
         }
-      }     
-    }
-  }
+      } // fim for     
+    } // fim if descer
+  } // fim andarTrem
   
+  /*********************************************************************
+  * Metodo: run
+  * Funcao: chama as funcoes que movimenta o trem, alem de verificar o tipo de tratamento após ser chamado
+  * Parametro: int posicao, string lado, ImageView trem
+  * Retorno: void
+  ******************************************************************* */
   @Override
   public void run () {
     while (true) { 
       try {
         if (controller.tremAzulSubindo() && controller.isStart() ) { 
 
-          if (controller.selecionouVariavelDeTravamento()) {
+          if (controller.selecionouVariavelDeTravamento()) { // tratar colisao com variavel de Travamento
             this.andarTrem( 90,"Subir", tremAzul);
             while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeBaixo(1);
@@ -200,7 +223,7 @@ public class TremAzul extends Thread {
             this.andarTrem(100,"Subir",tremAzul);
           } // fim selecionou variavel de tratamento
           
-          else if(controller.selecionouAlternanciaExplicita()) {
+          else if(controller.selecionouAlternanciaExplicita()) { // tratar colisao do alternancia explicita
             
             this.andarTrem( 90,"Subir", tremAzul);
             while (controller.getVezDeBaixo() == 0) {System.out.println();}
@@ -211,7 +234,6 @@ public class TremAzul extends Thread {
             // fim regiao critica embaixo
             controller.setVezDeBaixo(0);
             this.andarTrem( 95,"Subir",tremAzul);
-            
             while (controller.getVezDeCima() == 0) {System.out.println();}
             //inicio regiao critica cima
             this.girarTrem( 30, "Esquerda",tremAzul);
@@ -223,8 +245,7 @@ public class TremAzul extends Thread {
             
           } // fim alternancia explicita selecionado
           
-          else if (controller.selecionouSolucaoDePeterson()) {
-            System.out.println("Entrou aqui na solucao de Peterson Azul");
+          else if (controller.selecionouSolucaoDePeterson()) { // tratar colisao com solucao de Peterson
             this.andarTrem( 90,"Subir", tremAzul);
             controller.entrouNaRegiaoCriticaDeBaixo(1);
             // inicio regiao critica embaixo
@@ -233,9 +254,7 @@ public class TremAzul extends Thread {
             this.girarTrem(30,"Direita",tremAzul);
             // fim regiao critica embaixo
             controller.saiuDaRegiaoCriticaDeBaixo(1);
-            
             this.andarTrem( 95,"Subir",tremAzul);
-            
             controller.entrouNaRegiaoCriticaDeCima(1);
             //inicio regiao critica cima
             this.girarTrem( 30, "Esquerda",tremAzul);
@@ -246,8 +265,8 @@ public class TremAzul extends Thread {
             this.andarTrem(100,"Subir",tremAzul);
             
           } // fim selecionou SolucaoDePeterson
-
-
+          
+          // reseta pro inicio o trem
           tremAzul.setX(0.0);
           Platform.runLater(() -> tremAzul.setX(0.0));
           tremAzul.setY(0.0);
@@ -316,7 +335,8 @@ public class TremAzul extends Thread {
             controller.saiuDaRegiaoCriticaDeBaixo(1);
             this.andarTrem(120,"Descer",tremAzulLadoOposto);
           } // fim selecionou solucao de Peterson
-
+          
+          // reseta pro inicio o trem
           tremAzulLadoOposto.setX(0.0);
           Platform.runLater(() -> tremAzulLadoOposto.setX(0.0));
           tremAzulLadoOposto.setY(0.0);
