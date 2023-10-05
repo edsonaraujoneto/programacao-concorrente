@@ -207,18 +207,22 @@ public class TremVerde extends Thread {
             while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeBaixo(1);
             // inicio regiao critica embaixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita", tremVerde);
             this.andarTrem( 55,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica embaixo
             controller.setVariavelDeTravamentoDeBaixo(0);
             this.andarTrem( 95,"Subir",tremVerde);
             while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeCima(1);
             //inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerde);
             this.andarTrem(60,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.setVariavelDeTravamentoDeCima(0);
             this.andarTrem(100,"Subir",tremVerde);
@@ -229,18 +233,22 @@ public class TremVerde extends Thread {
             this.andarTrem( 90,"Subir", tremVerde);
             while (controller.getVezDeBaixo() == 1) {System.out.println();}
             // inicio regiao critica embaixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita", tremVerde);
             this.andarTrem( 55,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica embaixo
             controller.setVezDeBaixo(1);
             this.andarTrem( 95,"Subir",tremVerde);
             
             while (controller.getVezDeCima() == 1) {System.out.println();}
             //inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerde);
             this.andarTrem(60,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.setVezDeCima(1);
             this.andarTrem(100,"Subir",tremVerde);
@@ -251,18 +259,22 @@ public class TremVerde extends Thread {
             this.andarTrem( 90,"Subir", tremVerde);
             controller.entrouNaRegiaoCriticaDeBaixo(0);
             // inicio regiao critica embaixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita", tremVerde);
             this.andarTrem( 55,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica embaixo
             controller.saiuDaRegiaoCriticaDeBaixo(0);
             this.andarTrem( 95,"Subir",tremVerde);
             
             controller.entrouNaRegiaoCriticaDeCima(0);
             //inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerde);
             this.andarTrem(60,"Subir",tremVerde);
             this.girarTrem(30,"Esquerda",tremVerde);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.saiuDaRegiaoCriticaDeCima(0);
             this.andarTrem(100,"Subir",tremVerde);
@@ -280,18 +292,22 @@ public class TremVerde extends Thread {
             while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeCima(1);
             // inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
             this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.setVariavelDeTravamentoDeCima(0);
             this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
             while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeBaixo(1);
             //inicio regiao critica baixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
             this.andarTrem(75,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica baixo
             controller.setVariavelDeTravamentoDeBaixo(0);
             this.andarTrem(120,"Descer",tremVerdeLadoOposto);
@@ -301,17 +317,21 @@ public class TremVerde extends Thread {
             this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
             while (controller.getVezDeCima() == 1) {System.out.println();}
             // inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
             this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.setVezDeCima(1);
             this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
             while (controller.getVezDeBaixo() == 1) {System.out.println();}
             //inicio regiao critica baixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
             this.andarTrem(75,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica baixo
             controller.setVezDeBaixo(1);
             this.andarTrem(120,"Descer",tremVerdeLadoOposto);
@@ -320,17 +340,21 @@ public class TremVerde extends Thread {
             this.andarTrem( 80,"Descer",tremVerdeLadoOposto);
             controller.entrouNaRegiaoCriticaDeCima(0);
             // inicio regiao critica cima
+            controller.acenderLuzVermelhaCima(); // sinalizar na interface gráfica
             this.girarTrem( 30,"Direita",tremVerdeLadoOposto);
             this.andarTrem( 55,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaCima(); // sinalizar na interface gráfica
             // fim regiao critica cima
             controller.saiuDaRegiaoCriticaDeCima(0);
             this.andarTrem( 85,"Descer",tremVerdeLadoOposto);
             controller.entrouNaRegiaoCriticaDeBaixo(0);
             //inicio regiao critica baixo
+            controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
             this.girarTrem( 30, "Direita",tremVerdeLadoOposto);
             this.andarTrem(75,"Descer",tremVerdeLadoOposto);
             this.girarTrem(30,"Esquerda",tremVerdeLadoOposto);
+            controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica baixo
             controller.saiuDaRegiaoCriticaDeBaixo(0);
             this.andarTrem(120,"Descer",tremVerdeLadoOposto);

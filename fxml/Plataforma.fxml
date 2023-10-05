@@ -92,7 +92,7 @@
             <Image url="@../images/corSemaforoCimaGreen.png" />
          </image>
       </ImageView>
-    <Button layoutX="345.0" layoutY="433.0" mnemonicParsing="false" onAction="#clicouReiniciar" prefHeight="24.0" prefWidth="85.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 20px;" text="Reiniciar" textFill="WHITE">
+    <Button layoutX="345.0" layoutY="433.0" mnemonicParsing="false" onAction="#clicouReiniciar" prefHeight="24.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Reiniciar" textFill="#0095ff">
       <font>
         <Font name="System Bold" size="11.0" />
       </font>
@@ -106,12 +106,12 @@
         </ImageView>
       </graphic>
     </Button>
-      <ImageView fitHeight="68.0" fitWidth="40.0" layoutX="387.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="68.0" fitWidth="40.0" layoutX="387.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/tremIlustracao.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="54.0" layoutX="348.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="54.0" layoutX="348.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/tremIlustracao2.png" />
          </image>
@@ -123,76 +123,76 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <Group fx:id="grupoMenu" visible="false">
+      <Group fx:id="grupoMenu">
          <children>
             <ImageView fitHeight="600.0" fitWidth="507.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/imagemMenu.png" />
                </image>
             </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="198.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="196.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="222.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="220.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="222.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="220.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="198.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="196.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="288.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="286.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="312.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="310.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="288.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="286.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="313.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+          <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="311.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
             <image>
               <Image url="@../images/seta-direita.png" />
             </image>
           </ImageView>
-          <RadioButton fx:id="radioCimaCima" layoutX="176.0" layoutY="402.0" mnemonicParsing="false" />
-          <RadioButton fx:id="radioBaixoBaixo" layoutX="176.0" layoutY="445.0" mnemonicParsing="false" />
-          <RadioButton fx:id="radioCimaBaixo" layoutX="263.0" layoutY="404.0" mnemonicParsing="false" />
-          <RadioButton fx:id="radioBaixoCima" layoutX="262.0" layoutY="444.0" mnemonicParsing="false" />
-            <RadioButton fx:id="radioVariavelDeTravamento" layoutX="174.0" layoutY="213.0" mnemonicParsing="false" />
-            <RadioButton fx:id="radioEstritaAlternancia" layoutX="174.0" layoutY="244.0" mnemonicParsing="false" />
-            <RadioButton fx:id="radioSolucaoPeterson" layoutX="174.0" layoutY="274.0" mnemonicParsing="false" />
-            <Text fill="WHITE" layoutX="198.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variável de Travamento">
+          <RadioButton fx:id="radioCimaCima" layoutX="174.0" layoutY="334.0" mnemonicParsing="false" />
+          <RadioButton fx:id="radioBaixoBaixo" layoutX="174.0" layoutY="377.0" mnemonicParsing="false" />
+          <RadioButton fx:id="radioCimaBaixo" layoutX="261.0" layoutY="336.0" mnemonicParsing="false" />
+          <RadioButton fx:id="radioBaixoCima" layoutX="260.0" layoutY="376.0" mnemonicParsing="false" />
+            <RadioButton fx:id="radioVariavelDeTravamento" layoutX="171.0" layoutY="128.0" mnemonicParsing="false" />
+            <RadioButton fx:id="radioEstritaAlternancia" layoutX="171.0" layoutY="159.0" mnemonicParsing="false" />
+            <RadioButton fx:id="radioSolucaoPeterson" layoutX="171.0" layoutY="189.0" mnemonicParsing="false" />
+            <Text fill="WHITE" layoutX="195.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variável de Travamento">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="200.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estrita Alternância">
+            <Text fill="WHITE" layoutX="197.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estrita Alternância">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="216.0" layoutY="522.0" mnemonicParsing="false" onAction="#clicouIniciar" style="-fx-background-color: transparent; -fx-border-color: #fff;" text="Iniciar" textFill="WHITE">
+            <Button layoutX="391.0" layoutY="525.0" mnemonicParsing="false" onAction="#clicouIniciar" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Iniciar" textFill="#0b5ada">
                <font>
                   <Font name="Monospaced Bold" size="13.0" />
                </font>
             </Button>
-            <Text fill="WHITE" layoutX="200.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solução de Peterson">
+            <Text fill="WHITE" layoutX="197.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solução de Peterson">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

@@ -54,6 +54,14 @@ public class PlataformaController implements Initializable {
   private ImageView tremVerdeLadoOposto;
   @FXML
   private ImageView tremAzulLadoOposto;
+  @FXML
+  private ImageView luzVerdeBaixo;
+  @FXML
+  private ImageView luzVerdeCima;
+  @FXML
+  private ImageView luzVermelhaBaixo;
+  @FXML
+  private ImageView luzVermelhaCima;
 
   private MediaPlayer mediaPlayer;
   private int entrada = 0; // variavel de controle para som do trem
@@ -115,6 +123,10 @@ public class PlataformaController implements Initializable {
     radioVariavelDeTravamento.setToggleGroup(grupoRadiosButtonsTratamento);
     radioSolucaoPeterson.setToggleGroup(grupoRadiosButtonsTratamento);
     radioEstritaAlternancia.setToggleGroup(grupoRadiosButtonsTratamento);
+    
+    // Inicialmente a passagem esta livre.
+    luzVerdeCima.setVisible(true);
+    luzVerdeBaixo.setVisible(true);
 
     // Listener para mudar a velocidade quando o valor for alterado do slider.
     aceleradorAzul.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -156,6 +168,10 @@ public class PlataformaController implements Initializable {
     // Pausa ambas threads quando o botão de reiniciar é clicado
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
+    
+    // Caso tenha sido reiniciado com a cor vermelha ligada, ela é apagada.
+    apagarLuzVermelhaBaixo();
+    apagarLuzVermelhaCima();
     
     grupoMenu.setVisible(true); // Torna o menu visivel
     start = false; 
@@ -485,6 +501,50 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   public void saiuDaRegiaoCriticaDeCima (int id) {
     interesseDeCima [id] = false;
+  }
+  
+  /*********************************************************************
+  * Metodo: acenderLuzVermelhaCima
+  * Funcao: Tornar Visivel a imagem com destaque do vermelho e deixar invisivel o verde.
+  * Parametros: void
+  * Retorno: void
+  ******************************************************************* */
+  public void acenderLuzVermelhaCima() {
+    luzVermelhaCima.setVisible(true);
+    luzVerdeCima.setVisible(false);
+  }
+  
+  /*********************************************************************
+  * Metodo: apagarLuzVermelhaCima
+  * Funcao: Tornar Visivel a imagem com destaque do verde e deixar invisivel o vermelho
+  * Parametros: void
+  * Retorno: void
+  ******************************************************************* */
+  public void apagarLuzVermelhaCima() {
+    luzVermelhaCima.setVisible(false);
+    luzVerdeCima.setVisible(true);
+  }
+  
+  /*********************************************************************
+  * Metodo: acenderLuzVermelhaBaixo
+  * Funcao: Tornar Visivel a imagem com destaque do vermelho e deixar invisivel o verde.
+  * Parametros: void
+  * Retorno: void
+  ******************************************************************* */
+  public void acenderLuzVermelhaBaixo() {
+    luzVermelhaBaixo.setVisible(true);
+    luzVerdeBaixo.setVisible(false);
+  }
+  
+  /*********************************************************************
+  * Metodo: apagarLuzVermelhaBaixo
+  * Funcao: Tornar Visivel a imagem com destaque do verde e deixar invisivel o vermelho
+  * Parametros: void
+  * Retorno: void
+  ******************************************************************* */
+  public void apagarLuzVermelhaBaixo() {
+    luzVermelhaBaixo.setVisible(false);
+    luzVerdeBaixo.setVisible(true);
   }
 
 } // Fim do PlataformaController
