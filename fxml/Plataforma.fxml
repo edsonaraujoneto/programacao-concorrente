@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlataformaController">
   <children>
     <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -72,12 +72,32 @@
             <Image url="@../images/reiniciar.png" />
          </image>
       </ImageView>
-    <Button layoutX="345.0" layoutY="433.0" mnemonicParsing="false" onAction="#clicouReiniciar" prefHeight="24.0" prefWidth="85.0" style="-fx-background-color: transparent; -fx-border-color: #fff;" text="Reiniciar" textFill="WHITE">
+      <ImageView fx:id="luzVermelhaBaixo" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/corSemaforoBaixoRed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="luzVerdeBaixo" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/corSemaforoBaixoGreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="luzVermelhaCima" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/corSemaforoCimaRed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="luzVerdeCima" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/corSemaforoCimaGreen.png" />
+         </image>
+      </ImageView>
+    <Button layoutX="345.0" layoutY="433.0" mnemonicParsing="false" onAction="#clicouReiniciar" prefHeight="24.0" prefWidth="85.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 20px;" text="Reiniciar" textFill="WHITE">
       <font>
         <Font name="System Bold" size="11.0" />
       </font>
     </Button>
-    <Button layoutX="-1.0" mnemonicParsing="false" onAction="#clicouMute" prefHeight="24.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: #fff;" textFill="#0384df">
+    <Button layoutX="-1.0" mnemonicParsing="false" onAction="#clicouMute" prefHeight="24.0" prefWidth="40.0" style="-fx-background-color: transparent;" textFill="#0384df">
       <graphic>
         <ImageView fitHeight="15.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -103,7 +123,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <Group fx:id="grupoMenu">
+      <Group fx:id="grupoMenu" visible="false">
          <children>
             <ImageView fitHeight="600.0" fitWidth="507.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -35,7 +35,7 @@ public class Principal extends Application {
     primaryStage.setScene(scene);
 
     primaryStage.getIcons().add(icon); // adicionar icon a janela
-    primaryStage.setOnCloseRequest(t -> { // fechar os processos caso a janela seja fechada
+    primaryStage.setOnCloseRequest(t -> { // finalizar os processos caso a janela seja fechada
       Platform.exit();
       System.exit(0);
     });
