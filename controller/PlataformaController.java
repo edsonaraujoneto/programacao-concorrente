@@ -150,6 +150,8 @@ public class PlataformaController implements Initializable {
     if (selecionouPosicao() && selecionouTratamentoDeColisao()) { // Verifica se os itens minimos foram atendidos
       grupoMenu.setVisible(false); // Esconde o menu (todo o grupo)
       ajustarPosicao(); // Ajusta a posicao dos trens
+      setVariavelDeTravamentoDeBaixo(0); 
+      setVariavelDeTravamentoDeCima(0);
     }
   }
   
@@ -203,6 +205,7 @@ public class PlataformaController implements Initializable {
         tremAzulThread.start();
       } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade); // Maximo de 4 e mínimo de 20 aproximadamente
+      mediaPlayer.play(); // soltar o som do trem
       if (tremAzulThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremAzulThread) {
           tremAzulThread.setPausarThread(false);
@@ -212,6 +215,7 @@ public class PlataformaController implements Initializable {
     } // fim if acelerador diferente de 0
     
     else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) { // verifica se a velocidade é zero e o trem esta em movimento
+      mediaPlayer.stop();
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(true); // pausa a thread
       }
@@ -233,6 +237,7 @@ public class PlataformaController implements Initializable {
         start = true;
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
+      mediaPlayer.play(); // soltar o som do trem
       if (tremVerdeThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremVerdeThread) {
           tremVerdeThread.setPausarThread(false);
@@ -240,7 +245,8 @@ public class PlataformaController implements Initializable {
         }
       }
     } // fim if acelerador diferente de 0 
-    else if(aceleradorVerde.getValue() == 0 ) {
+    else if(aceleradorVerde.getValue() == 0 && tremVerdeThread.isAlive() ) {
+      mediaPlayer.stop();
       synchronized (tremVerdeThread) {
         tremVerdeThread.setPausarThread(true); // pausa a thread
       }
