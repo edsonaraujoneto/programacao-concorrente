@@ -19,8 +19,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import model.TremAzul;
 import model.TremVerde;
 
@@ -63,8 +61,6 @@ public class PlataformaController implements Initializable {
   @FXML
   private ImageView luzVermelhaCima;
 
-  private MediaPlayer mediaPlayer;
-  private int entrada = 0; // variavel de controle para som do trem
   private TremAzul tremAzulThread;
   private TremVerde tremVerdeThread;
   private ToggleGroup grupoRadiosButtonsDirecao;
@@ -102,11 +98,6 @@ public class PlataformaController implements Initializable {
     getAceleradorVerde().setMajorTickUnit(1);
     getAceleradorVerde().setShowTickLabels(true);
     
-    // carregar arquivo de audio
-    String audioFile = getClass().getResource("/music/somDeTrem.mp3").toExternalForm();
-    Media media = new Media(audioFile);
-    mediaPlayer = new MediaPlayer(media);
-    
     // criando as threads e passando como parametro o mesmo controller 
     tremAzulThread = new TremAzul(this);
     tremVerdeThread = new TremVerde(this);
@@ -117,6 +108,10 @@ public class PlataformaController implements Initializable {
     radioBaixoCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
     radioCimaCima.setToggleGroup(getGrupoRadiosButtonsDirecao());
     radioCimaBaixo.setToggleGroup(getGrupoRadiosButtonsDirecao());
+    
+    // Opções padrões de inicio
+    radioCimaCima.setSelected(true);
+    radioSolucaoPeterson.setSelected(true);
     
     // criando um grupo onde sera possivel selecionar apenas um radio button de tratamento de colisão
     ToggleGroup grupoRadiosButtonsTratamento = new ToggleGroup();
@@ -150,8 +145,6 @@ public class PlataformaController implements Initializable {
     if (selecionouPosicao() && selecionouTratamentoDeColisao()) { // Verifica se os itens minimos foram atendidos
       grupoMenu.setVisible(false); // Esconde o menu (todo o grupo)
       ajustarPosicao(); // Ajusta a posicao dos trens
-      setVariavelDeTravamentoDeBaixo(0); 
-      setVariavelDeTravamentoDeCima(0);
     }
   }
   
@@ -163,31 +156,31 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   @FXML
   public void clicouReiniciar(ActionEvent event) {
-    // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
-    setVariavelDeTravamentoDeBaixo(0); 
-    setVariavelDeTravamentoDeCima(0);
     
     // Pausa ambas threads quando o botão de reiniciar é clicado
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
+    start = false; 
+    
+    // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
+    setVariavelDeTravamentoDeBaixo(0); 
+    setVariavelDeTravamentoDeCima(0);
     
     // Caso tenha sido reiniciado com a cor vermelha ligada, ela é apagada.
     apagarLuzVermelhaBaixo();
     apagarLuzVermelhaCima();
+  
     
     grupoMenu.setVisible(true); // Torna o menu visivel
-    start = false; 
     
     if (tremAzulThread.isAlive()) { // Se a thread está viva
       tremAzulThread.interrupt(); 
       tremAzulThread = new TremAzul(this); // Instancia uma nova após interromper a anterior
-      mediaPlayer.stop();
     }
     
     if (tremVerdeThread.isAlive()) { 
       tremVerdeThread.interrupt();
       tremVerdeThread = new TremVerde(this);
-      mediaPlayer.stop();
     }
   } // Fim do metodo clicouReiniciar
   
@@ -199,13 +192,12 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   public void iniciarThreadTremAzul (double velocidade) {
 
-    if (aceleradorAzul.getValue() != 0 ) {
+    if (velocidade != 0 ) {
       if (!tremAzulThread.isAlive()) { // caso a thread não esteja viva, é iniciada.
         start = true;
         tremAzulThread.start();
       } 
       tremAzulThread.setVelocidadeTrem( 20/velocidade); // Maximo de 4 e mínimo de 20 aproximadamente
-      mediaPlayer.play(); // soltar o som do trem
       if (tremAzulThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremAzulThread) {
           tremAzulThread.setPausarThread(false);
@@ -214,8 +206,7 @@ public class PlataformaController implements Initializable {
       }
     } // fim if acelerador diferente de 0
     
-    else if(aceleradorAzul.getValue() == 0 && tremAzulThread.isAlive()) { // verifica se a velocidade é zero e o trem esta em movimento
-      mediaPlayer.stop();
+    else if(velocidade == 0 && tremAzulThread.isAlive()) { // verifica se a velocidade é zero e o trem esta em movimento
       synchronized (tremAzulThread) {
         tremAzulThread.setPausarThread(true); // pausa a thread
       }
@@ -231,13 +222,12 @@ public class PlataformaController implements Initializable {
   ******************************************************************* */
   public void iniciarThreadTremVerde (double velocidade) {
     
-    if (aceleradorVerde.getValue() != 0 ) {
+    if (velocidade != 0 ) {
       if (!tremVerdeThread.isAlive()) { // caso a thread não esteja viva, é iniciada.
         tremVerdeThread.start();
         start = true;
       } 
       tremVerdeThread.setVelocidadeTrem( 20/velocidade); //Maximo de 4 e mínimo de 20 aproximadamente
-      mediaPlayer.play(); // soltar o som do trem
       if (tremVerdeThread.getPausarThread()) { // caso a Thread esteja pausada, volta a movimentar
         synchronized (tremVerdeThread) {
           tremVerdeThread.setPausarThread(false);
@@ -245,8 +235,7 @@ public class PlataformaController implements Initializable {
         }
       }
     } // fim if acelerador diferente de 0 
-    else if(aceleradorVerde.getValue() == 0 && tremVerdeThread.isAlive() ) {
-      mediaPlayer.stop();
+    else if(velocidade == 0 && tremVerdeThread.isAlive() ) {
       synchronized (tremVerdeThread) {
         tremVerdeThread.setPausarThread(true); // pausa a thread
       }
@@ -291,26 +280,7 @@ public class PlataformaController implements Initializable {
       tremVerdeThread.setDirecao("Baixo");
     }
   } // fim ajustarPosicao
-
-  /*********************************************************************
-  * Metodo: clicouMute
-  * Funcao: Mutar o audio do trem 
-  * Parametros: Evento de clique
-  * Retorno: void
-  ******************************************************************* */
-  @FXML
-  public void clicouMute(ActionEvent event) {
-    if (entrada % 2 == 0) { // entrada eh a variavel inteira inicializada com 1
-      mediaPlayer.stop();
-      ++entrada;
-    } else if (getAceleradorAzul().getValue() != 0 || getAceleradorVerde().getValue() != 0) { // aceleradorAzul e aceleradorVerde sao os sliders(velocimetro) do trem
-      // condicao para dar possibilidade de tocar o audio novamente apos desativa-lo
-      mediaPlayer.play();
-      ++entrada;
-    }
-  } // fim do metodo clicouMute
-  
-  
+ 
   /*********************************************************************
   * Metodo: selecionouTratamentoDeColisao
   * Funcao: Verifica se o radioButton de tratamentoDeColisao foi selecionado
