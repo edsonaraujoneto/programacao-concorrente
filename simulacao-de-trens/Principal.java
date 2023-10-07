@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import controller.PlataformaController;
 
 public class Principal extends Application {
 
