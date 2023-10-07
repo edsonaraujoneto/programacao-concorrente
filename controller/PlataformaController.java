@@ -145,6 +145,19 @@ public class PlataformaController implements Initializable {
     if (selecionouPosicao() && selecionouTratamentoDeColisao()) { // Verifica se os itens minimos foram atendidos
       grupoMenu.setVisible(false); // Esconde o menu (todo o grupo)
       ajustarPosicao(); // Ajusta a posicao dos trens
+      // Reseta os interesses de todos como false.
+      interesseDeBaixo[0] = false;
+      interesseDeBaixo[1] = false;
+      interesseDeCima [0] = false;
+      interesseDeCima [1] = false;
+      
+      // a vez inicial é do trem verde
+      vezDeCima = 0;
+      vezDeBaixo = 0;
+      
+      // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
+      setVariavelDeTravamentoDeBaixo(0); 
+      setVariavelDeTravamentoDeCima(0);
     }
   }
   
@@ -160,17 +173,13 @@ public class PlataformaController implements Initializable {
     // Pausa ambas threads quando o botão de reiniciar é clicado
     iniciarThreadTremAzul(0);
     iniciarThreadTremVerde(0);
-    start = false; 
+    start = false; // false não permite que o trem se movimente.
     
-    // Necessario colocar as vT em 0 para caso esteja em 1 quando foi reiniciado.
-    setVariavelDeTravamentoDeBaixo(0); 
-    setVariavelDeTravamentoDeCima(0);
-    
+
     // Caso tenha sido reiniciado com a cor vermelha ligada, ela é apagada.
     apagarLuzVermelhaBaixo();
     apagarLuzVermelhaCima();
   
-    
     grupoMenu.setVisible(true); // Torna o menu visivel
     
     if (tremAzulThread.isAlive()) { // Se a thread está viva
@@ -241,7 +250,6 @@ public class PlataformaController implements Initializable {
       }
     } // fim if acelerador igual a 0
   } // fim iniciarThreadTremVerde
-  
   
   /*********************************************************************
   * Metodo: selecionouPosicao

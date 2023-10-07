@@ -33,7 +33,7 @@ public class TremVerde extends Thread {
   
   /*********************************************************************
   * Metodo: verificar
-  * Funcao: verifica se a velocidade é igual a zero para pausar a thread.
+  * Funcao: verifica se a velocidade é igual a zero para colocar thread no estado de espera
   * Parametro: void
   * Retorno: void
   ******************************************************************* */

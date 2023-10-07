@@ -33,7 +33,7 @@ public class TremAzul extends Thread {
   
   /*********************************************************************
   * Metodo: verificar
-  * Funcao: verifica se a velocidade é igual a zero para pausar a thread.
+  * Funcao: verifica se a velocidade é igual a zero para colocar thread no estado de espera
   * Parametro: void
   * Retorno: void
   ******************************************************************* */
@@ -202,18 +202,18 @@ public class TremAzul extends Thread {
         if (controller.tremAzulSubindo() && controller.isStart() ) { 
 
           if (controller.selecionouVariavelDeTravamento()) { // tratar colisao com variavel de Travamento
-            this.andarTrem( 90,"Subir", tremAzul);
+            this.andarTrem( 108,"Subir", tremAzul);
             while (controller.getVariavelDeTravamentoDeBaixo() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeBaixo(1);
             // inicio regiao critica embaixo
             controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
-            this.girarTrem( 33,"Esquerda", tremAzul);
-            this.andarTrem( 55,"Subir",tremAzul);
-            this.girarTrem(30,"Direita",tremAzul);
+            this.girarTrem( 15,"Esquerda", tremAzul);
+            this.andarTrem( 80,"Subir",tremAzul);
+            this.girarTrem(15,"Direita",tremAzul);
             controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica embaixo
             controller.setVariavelDeTravamentoDeBaixo(0);
-            this.andarTrem( 95,"Subir",tremAzul);
+            this.andarTrem( 110,"Subir",tremAzul);
             while (controller.getVariavelDeTravamentoDeCima() == 1) {System.out.println();}
             controller.setVariavelDeTravamentoDeCima(1);
             //inicio regiao critica cima
