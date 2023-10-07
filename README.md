@@ -7,16 +7,9 @@ Todos os códigos aqui postados são de autoria de @edsonaraujoneto
 ---
 # Trabalhos 🖥
 
-
-## Simulação de trens
-[Clique aqui para ver o código](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/simulacao-de-trens)
-
-### Em execução
+1. [Simulação de trens](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/simulacao-de-trens)
 
 
-https://github.com/edsonaraujoneto/programacao-concorrente/assets/137104822/bde27508-41c5-4104-b372-3133f79f0c39
-
-___
 
 
 
