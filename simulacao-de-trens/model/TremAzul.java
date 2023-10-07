@@ -207,9 +207,9 @@ public class TremAzul extends Thread {
             controller.setVariavelDeTravamentoDeBaixo(1);
             // inicio regiao critica embaixo
             controller.acenderLuzVermelhaBaixo(); // sinalizar na interface gráfica
-            this.girarTrem( 15,"Esquerda", tremAzul);
-            this.andarTrem( 80,"Subir",tremAzul);
-            this.girarTrem(15,"Direita",tremAzul);
+            this.girarTrem( 33,"Esquerda", tremAzul);
+            this.andarTrem(55,"Subir",tremAzul);
+            this.girarTrem(30,"Direita",tremAzul);
             controller.apagarLuzVermelhaBaixo(); // sinalizar na interface gráfica
             // fim regiao critica embaixo
             controller.setVariavelDeTravamentoDeBaixo(0);
