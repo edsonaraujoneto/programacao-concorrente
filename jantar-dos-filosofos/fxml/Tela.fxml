@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cenario.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo01" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/garfo1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo02" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/garfo2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo03" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/garfo3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo04" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/garfo4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo05" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/garfo5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo1e2" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/garfo1e2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo1e5" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/garfo1e5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo3e2" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/garfo3e2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo4e3" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/garfo4e3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="garfo5e4" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/garfo5e4.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="602.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comer" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="604.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensar" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="603.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comer" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="604.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensar" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="603.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comer" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="603.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensar" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="605.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comer" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="605.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensar" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="602.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comer" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="Filosofo01Aguardando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo01Aguardando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo02Aguardando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo02Aguardando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo03Aguardando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo03Aguardando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo04Aguardando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo04Aguardando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo05Aguardando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo05Aguardando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo01Pensando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo01Pensando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo02Pensando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo02Pensando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo03Pensando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo03Pensando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo04Pensando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo04Pensando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo05Pensando" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo05Pensando.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo01Comendo" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/indicacaoFilosofo01Comendo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo02Comendo" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/IndicacaoFilosofo02Comendo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo03Comendo" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/IndicacaoFilosofo03Comendo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo04Comendo" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/IndicacaoFilosofo04Comendo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo05Comendo" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/IndicacaoFilosofo05Comendo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo01Pausado" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo01Pausado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo02Pausado" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo02Pausado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo03Pausado" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo03Pausado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo04Pausado" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo04Pausado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Filosofo05Pausado" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/Filosofo05Pausado.png" />
+         </image>
+      </ImageView>
+      <Slider fx:id="sliderComerFilosofo01" layoutX="572.0" layoutY="93.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderPensarFilosofo01" layoutX="572.0" layoutY="124.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderComerFilosofo02" layoutX="572.0" layoutY="192.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderPensarFilosofo02" layoutX="572.0" layoutY="222.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderComerFilosofo03" layoutX="572.0" layoutY="291.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderPensarFilosofo03" layoutX="572.0" layoutY="321.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderComerFilosofo04" layoutX="575.0" layoutY="381.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderPensarFilosofo04" layoutX="575.0" layoutY="413.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderComerFilosofo05" layoutX="572.0" layoutY="482.0" prefHeight="12.0" prefWidth="105.0" />
+      <Slider fx:id="sliderPensarFilosofo05" layoutX="572.0" layoutY="511.0" prefHeight="12.0" prefWidth="105.0" />
+      <Button fx:id="buttonReiniciar" layoutX="215.0" layoutY="532.0" mnemonicParsing="false" onAction="#clicouEmReiniciar" style="-fx-background-color: fff600; -fx-background-radius: 20px;" text="Reiniciar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="buttonPausarFilosofo01" layoutX="699.0" layoutY="98.0" mnemonicParsing="false" onAction="#clicouEmPausarFilosofo01" style="-fx-background-radius: 20px; -fx-background-color: #fff;" text="Pausar" />
+      <Button fx:id="buttonPausarFilosofo02" layoutX="699.0" layoutY="197.0" mnemonicParsing="false" onAction="#clicouEmPausarFilosofo02" style="-fx-background-radius: 20px; -fx-background-color: #fff;" text="Pausar" />
+      <Button fx:id="buttonPausarFilosofo03" layoutX="699.0" layoutY="295.0" mnemonicParsing="false" onAction="#clicouEmPausarFilosofo03" style="-fx-background-radius: 20px; -fx-background-color: #fff;" text="Pausar" />
+      <Button fx:id="buttonPausarFilosofo04" layoutX="699.0" layoutY="390.0" mnemonicParsing="false" onAction="#clicouEmPausarFilosofo04" style="-fx-background-color: #000; -fx-background-radius: 20px;" text="Pausar" textFill="WHITE" />
+      <Button fx:id="buttonPausarFilosofo05" layoutX="699.0" layoutY="489.0" mnemonicParsing="false" onAction="#clicouEmPausarFilosofo05" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Text fill="WHITE" layoutX="603.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensar" wrappingWidth="55.244140625">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
