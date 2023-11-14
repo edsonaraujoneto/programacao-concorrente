@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="659.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaController">
+   <children>
+      <ImageView fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cenario.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor01Escrevendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/escrevendo_escritor01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor02Escrevendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/escrevendo_escritor02.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor03Escrevendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/escrevendo_escritor03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor04Escrevendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/escrevendo_escritor04.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor05Escrevendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/escrevendo_escritor05.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor01Lendo" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/lendo_leitor01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor02Lendo" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/lendo_leitor02.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor03Lendo" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/lendo_leitor03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor04Lendo" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/lendo_leitor04.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor05Lendo" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/lendo_leitor05.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor01Obtendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/obtendo_escritor01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor02Obtendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/obtendo_escritor02.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor03Obtendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/obtendo_escritor03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor04Obtendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/obtendo_escritor04.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="escritor05Obtendo" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/obtendo_escritor05.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor01Utilizando" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/utilizando_leitor01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor02Utilizando" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/utilizando_leitor02.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor03Utilizando" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/utilizando_leitor03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor04Utilizando" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/utilizando_leitor04.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leitor05Utilizando" fitHeight="600.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/utilizando_leitor05.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/mesa2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/mesa.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/painelescritores.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="buttonPausarLeitor01" layoutX="112.0" layoutY="114.0" mnemonicParsing="false" onAction="#clicouEmPausarLeitor01" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Text fill="WHITE" layoutX="60.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vel. Ler" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="37.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vel. Utilizar" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="27.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vel. Obter" wrappingWidth="64.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="14.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vel. Escrever" wrappingWidth="78.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textLeitor01" fill="WHITE" layoutX="159.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textLeitor02" fill="WHITE" layoutX="288.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textLeitor03" fill="WHITE" layoutX="415.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textLeitor04" fill="WHITE" layoutX="538.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textLeitor05" fill="WHITE" layoutX="663.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textEscritor05" fill="WHITE" layoutX="130.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textEscritor04" fill="WHITE" layoutX="268.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textEscritor03" fill="WHITE" layoutX="399.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textEscritor02" fill="WHITE" layoutX="528.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="textEscritor01" fill="WHITE" layoutX="655.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="129.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="230.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="129.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="230.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="257.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="358.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="257.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="358.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="383.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="484.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="383.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="484.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="509.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="610.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="509.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="610.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="639.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="740.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="639.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="740.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="100.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="201.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="100.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="201.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="235.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="337.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="235.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="337.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="365.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="469.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="365.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="469.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="493.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="593.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="493.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="593.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="621.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="723.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="621.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="723.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="135.66666793823242">
+         <font>
+            <Font name="Malgun Gothic Bold" size="12.0" />
+         </font>
+      </Text>
+      <Button fx:id="buttonReiniciar" layoutX="695.0" layoutY="361.0" mnemonicParsing="false" onAction="#clicouEmReiniciar" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: #173579; -fx-background-radius: 20px;" text="Reiniciar" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Slider fx:id="sliderLeitor01Lendo" layoutX="137.0" layoutY="19.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor01Utilizando" layoutX="137.0" layoutY="47.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor02Lendo" layoutX="265.0" layoutY="19.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor02Utilizando" layoutX="265.0" layoutY="47.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor03Lendo" layoutX="390.0" layoutY="19.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor03Utilizando" layoutX="390.0" layoutY="47.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor04Lendo" layoutX="517.0" layoutY="19.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor04Utilizando" layoutX="517.0" layoutY="47.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor05Lendo" layoutX="647.0" layoutY="20.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderLeitor05Utilizando" layoutX="647.0" layoutY="48.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="2.0" />
+      <Slider fx:id="sliderEscritor05Obtendo" layoutX="109.0" layoutY="577.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor05Escrevendo" layoutX="109.0" layoutY="605.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor04Obtendo" layoutX="245.0" layoutY="577.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor04Escrevendo" layoutX="245.0" layoutY="605.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor03Obtendo" layoutX="376.0" layoutY="578.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor03Escrevendo" layoutX="376.0" layoutY="606.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor02Obtendo" layoutX="502.0" layoutY="577.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor02Escrevendo" layoutX="502.0" layoutY="605.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor01Obtendo" layoutX="630.0" layoutY="577.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Slider fx:id="sliderEscritor01Escrevendo" layoutX="630.0" layoutY="605.0" max="5.0" min="1.0" prefHeight="30.0" prefWidth="92.0" value="1.0" />
+      <Button fx:id="buttonPausarLeitor02" layoutX="240.0" layoutY="114.0" mnemonicParsing="false" onAction="#clicouEmPausarLeitor02" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarLeitor03" layoutX="365.0" layoutY="114.0" mnemonicParsing="false" onAction="#clicouEmPausarLeitor03" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarLeitor04" layoutX="492.0" layoutY="114.0" mnemonicParsing="false" onAction="#clicouEmPausarLeitor04" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarLeitor05" layoutX="622.0" layoutY="114.0" mnemonicParsing="false" onAction="#clicouEmPausarLeitor05" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarEscritor05" layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#clicouEmPausarEscritor05" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarEscritor04" layoutX="224.0" layoutY="531.0" mnemonicParsing="false" onAction="#clicouEmPausarEscritor04" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarEscritor03" layoutX="349.0" layoutY="531.0" mnemonicParsing="false" onAction="#clicouEmPausarEscritor03" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarEscritor02" layoutX="476.0" layoutY="531.0" mnemonicParsing="false" onAction="#clicouEmPausarEscritor02" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <Button fx:id="buttonPausarEscritor01" layoutX="610.0" layoutY="531.0" mnemonicParsing="false" onAction="#clicouEmPausarEscritor01" style="-fx-background-color: #fff; -fx-background-radius: 20px;" text="Pausar" />
+      <ImageView fx:id="tutorialLeitor" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/tutorialleitor.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorialEscritor" fitHeight="659.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/tutorialescritor.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="buttonContinuar" layoutX="376.0" layoutY="583.0" mnemonicParsing="false" onAction="#clicouEmContinuar" prefHeight="34.0" prefWidth="102.0" style="-fx-background-color: #2eb214;" text="Continuar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
