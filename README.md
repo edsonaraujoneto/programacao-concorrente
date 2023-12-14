@@ -10,6 +10,7 @@ Todos os códigos aqui postados são de autoria de @edsonaraujoneto
 1. [Simulação de trens](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/simulacao-de-trens)
 2. [Jantar dos Filosofos](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/jantar-dos-filosofos)
 3. [Leitores e escritores](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/leitores-escritores)
+4. [Trânsito Autômato](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/transito-automato)
 
 
 
