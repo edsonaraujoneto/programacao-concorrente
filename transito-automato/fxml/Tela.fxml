@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.381" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/decoracao.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/menublack.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/estrada.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="menuImagem" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/menu.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso03" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso06" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso06.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso09" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso09.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso12" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso12.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso14" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso14.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso16" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso16.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso20" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso20.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="percurso23" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/percurso23.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP03" fitHeight="46.0" fitWidth="28.0" layoutX="38.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-03.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP06" fitHeight="46.0" fitWidth="28.0" layoutX="740.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-06.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP09" fitHeight="46.0" fitWidth="28.0" layoutX="740.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-09.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP12" fitHeight="46.0" fitWidth="28.0" layoutX="179.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-12.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP14" fitHeight="46.0" fitWidth="28.0" layoutX="459.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-14.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP16" fitHeight="46.0" fitWidth="28.0" layoutX="320.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-16.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP20" fitHeight="46.0" fitWidth="28.0" layoutX="600.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-20.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carroP23" fitHeight="28.0" fitWidth="46.0" layoutX="720.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/carro-do-percurso-23.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="885.0" layoutY="28.0" mnemonicParsing="false" onAction="#clicouEmReiniciar" prefHeight="35.0" prefWidth="101.0" style="-fx-background-color: #d2c71b;" text="Reiniciar" textFill="WHITE">
+         <font>
+            <Font name="Verdana Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonIniciar" layoutX="785.0" layoutY="28.0" mnemonicParsing="false" onAction="#clicouEmIniciar" prefHeight="35.0" prefWidth="101.0" style="-fx-background-color: #56a740;" text="Iniciar" textFill="WHITE">
+         <font>
+            <Font name="Verdana Bold" size="16.0" />
+         </font>
+      </Button>
+      <Group fx:id="controleDosCarros" layoutX="815.0" layoutY="105.0" visible="false">
+         <children>
+            <Slider fx:id="sliderCarroP03" layoutX="4.0" layoutY="4.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP03" layoutX="86.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP03" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP03" layoutX="133.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP03" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP06" layoutX="4.0" layoutY="63.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP06" layoutX="86.0" layoutY="59.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP06" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP06" layoutX="133.0" layoutY="59.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP06" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP09" layoutX="5.0" layoutY="122.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP09" layoutX="87.0" layoutY="118.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP09" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP09" layoutX="134.0" layoutY="118.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP09" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP12" layoutX="5.0" layoutY="180.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP12" layoutX="87.0" layoutY="176.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP12" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP12" layoutX="134.0" layoutY="176.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP12" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP16" layoutX="4.0" layoutY="237.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP16" layoutX="86.0" layoutY="233.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP16" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP16" layoutX="133.0" layoutY="233.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP16" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP23" layoutX="4.0" layoutY="295.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP23" layoutX="86.0" layoutY="291.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP23" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP23" layoutX="133.0" layoutY="291.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP23" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP14" layoutX="4.0" layoutY="353.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP14" layoutX="86.0" layoutY="349.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP14" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP14" layoutX="133.0" layoutY="349.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP14" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Slider fx:id="sliderCarroP20" layoutX="3.0" layoutY="410.0" max="7.0" min="3.0" prefHeight="14.0" prefWidth="76.0" value="3.0" />
+            <Button fx:id="buttonPausarP20" layoutX="85.0" layoutY="406.0" mnemonicParsing="false" onAction="#clicouEmPausarCarroP20" style="-fx-background-color: #fff;" text="Pausar">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonMostrarP20" layoutX="132.0" layoutY="406.0" mnemonicParsing="false" onAction="#clicouMostrarPercursoCarroP20" style="-fx-background-color: #fff;" text="Percurso">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
