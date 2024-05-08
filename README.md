@@ -2,8 +2,6 @@
 
 Aqui estão todos os trabalhos realizados na disciplina de **Programação concorrente** ministrada pelo professor **Marlos Marques** no III semestre do curso de Ciência da Computação na Universidade Estadual do Sudoeste da Bahia (UESB) em Vitória da Conquista, Bahia.
 
-Todos os códigos aqui postados são de autoria de @edsonaraujoneto
-
 ---
 # Trabalhos 🖥
 
@@ -35,6 +33,37 @@ Todos os códigos aqui postados são de autoria de @edsonaraujoneto
    
    Nota: [100/100]
    [Código disponível aqui](https://github.com/edsonaraujoneto/programacao-concorrente/tree/master/transito-automato)
+
+# Autor 
+
+<p align="center">
+  <img width="200px" alt="Edson Araujo" title="Edson Araujo" src="https://avatars.githubusercontent.com/u/137104822?v=4" />
+
+  <h3 align="center">Edson A. S. Neto</h3>
+
+  <p align="center">
+    Graduando em Ciência da Computação | Software Developer
+  </p>
+</p>
+
+<div align="center">
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-1f6feb?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/vhmarcal/)](https://www.linkedin.com/in/edsonaraujo2003/)
+
+</div>
+
+
+
+
+
+
+
+
+
+   
+
+
+
 
 
 
